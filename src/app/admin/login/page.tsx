@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { BookOpen, Lock, Mail, ArrowRight, Eye, EyeOff, AlertCircle, ArrowLeft } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
+import { isAdminUser } from "@/lib/auth";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -36,10 +37,22 @@ export default function LoginPage() {
         return;
       }
 
-      if (data?.user) {
-        router.push("/admin/dashboard");
-        router.refresh();
+      if (!data?.user) {
+        setErrorMsg("A autenticação foi concluída sem retornar um usuário. Tente novamente.");
+        setLoading(false);
+        return;
       }
+
+      if (!isAdminUser(data.user)) {
+        await supabase.auth.signOut();
+        setErrorMsg("E-mail e senha válidos, mas esta conta ainda não tem acesso administrativo. Peça a um administrador para atribuir app_metadata.role = admin.");
+        setLoading(false);
+        return;
+      }
+
+      setLoading(false);
+      router.replace("/admin/dashboard");
+      router.refresh();
     } catch (err: any) {
       setErrorMsg("Falha ao comunicar com o servidor de autenticação.");
       setLoading(false);
