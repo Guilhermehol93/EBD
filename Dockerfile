@@ -17,6 +17,8 @@ RUN npm ci
 FROM base AS builder
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
+# Docker/Git do not preserve empty directories; the runner still copies this path.
+RUN mkdir -p /app/public
 
 # NEXT_PUBLIC variables are embedded in the browser bundle at build time.
 ARG NEXT_PUBLIC_SUPABASE_URL
