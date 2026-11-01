@@ -48,8 +48,9 @@ export default function NovaRevistaPage() {
       .then(async (response) => {
         const data = await response.json();
         if (!response.ok) throw new Error(data.error || "Falha ao carregar as classes.");
-        setClasses(data.classes || []);
-        setClassId(data.classes?.find((item: EbdClass) => item.slug === "geral")?.id || data.classes?.[0]?.id || "");
+        const activeClasses = (data.classes || []).filter((item: EbdClass) => item.is_active);
+        setClasses(activeClasses);
+        setClassId(activeClasses.find((item: EbdClass) => item.slug === "geral")?.id || activeClasses[0]?.id || "");
       })
       .catch((error) => setErrorMsg(error.message));
   }, []);

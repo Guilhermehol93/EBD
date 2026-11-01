@@ -49,7 +49,13 @@ export default function EditarRevistaPage({ params }: { params: { id: string } }
         if (!classesRes.ok) throw new Error(classesData.error || "Falha ao carregar classes.");
         const data: Magazine = await res.json();
         setMagazine(data);
-        setClasses(classesData.classes || []);
+        // Keep a currently assigned inactive class visible so the magazine can
+        // remain unchanged, but don't offer inactive classes as new choices.
+        setClasses(
+          (classesData.classes || []).filter(
+            (item: EbdClass) => item.is_active || item.id === data.class_id
+          )
+        );
         setClassId(data.class_id);
         setTitle(data.title);
         setDescription(data.description || "");
@@ -202,7 +208,7 @@ export default function EditarRevistaPage({ params }: { params: { id: string } }
             <div className="md:col-span-2">
               <label className="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-1.5">Classe da EBD *</label>
               <select required value={classId} onChange={(e) => setClassId(e.target.value)} className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-church-500/20 focus:border-church-500">
-                {classes.map((item) => <option key={item.id} value={item.id}>{item.name}{item.is_active ? "" : " (inativa)"}</option>)}
+                {classes.map((item) => <option key={item.id} value={item.id}>{item.name}{item.is_active ? "" : " (inativa — classe atual)"}</option>)}
               </select>
             </div>
             <div className="md:col-span-2">
