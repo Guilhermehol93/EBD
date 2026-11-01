@@ -25,6 +25,24 @@ body, header, main, section, footer, aside, article, input, textarea, select, bu
   transition-duration: 180ms;
 }
 
+@keyframes mobile-drawer-enter {
+  from { transform: translateX(-100%); }
+  to { transform: translateX(0); }
+}
+
+@keyframes mobile-drawer-backdrop-enter {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+[data-mobile-drawer] > button { animation: mobile-drawer-backdrop-enter 180ms ease-out both; }
+[data-mobile-drawer] > aside { animation: mobile-drawer-enter 240ms cubic-bezier(.2,.8,.2,1) both; }
+
+@media (prefers-reduced-motion: reduce) {
+  [data-mobile-drawer] > button,
+  [data-mobile-drawer] > aside { animation-duration: 1ms; }
+}
+
 button, a, input, textarea, select { -webkit-tap-highlight-color: transparent; }
 
 :focus-visible {

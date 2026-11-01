@@ -161,6 +161,7 @@ export default function AdminConfiguracoesPage() {
     }
 
     setTestingWa(true);
+    setErrorMessage(null);
     try {
       const res = await fetch("/api/whatsapp/test", {
         method: "POST",
@@ -170,16 +171,20 @@ export default function AdminConfiguracoesPage() {
           provider: whatsappApiProvider,
           instanceName: whatsappInstanceName,
         }),
+        signal: AbortSignal.timeout(25_000),
       });
 
-      const data = await res.json();
+      const data = await res.json().catch(() => ({}));
       if (!res.ok || !data.success) {
-        alert("Falha no teste: " + (data.error || "Erro de conexão"));
+        setErrorMessage("Falha no teste: " + (data.error || "Erro de conexão"));
       } else {
-        alert("Sucesso! Mensagem de teste enviada com sucesso no WhatsApp.");
+        showToast("Mensagem de teste enviada com sucesso no WhatsApp.");
       }
     } catch (err: any) {
-      alert("Erro na requisição: " + err.message);
+      const message = err?.name === "TimeoutError"
+        ? "O teste excedeu 25 segundos sem resposta. Verifique a conexão e os logs da Evolution API."
+        : err?.message || "Erro na requisição de teste.";
+      setErrorMessage(message);
     } finally {
       setTestingWa(false);
     }

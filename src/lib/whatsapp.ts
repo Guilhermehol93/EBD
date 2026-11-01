@@ -17,6 +17,8 @@ export interface SendWhatsAppResult {
   error?: string;
 }
 
+const WHATSAPP_REQUEST_TIMEOUT_MS = 20_000;
+
 /**
  * Sends a WhatsApp text message through Evolution API or Generic Webhook
  */
@@ -51,6 +53,7 @@ export async function sendWhatsAppMessage(params: SendWhatsAppParams): Promise<S
           'apikey': apiKey,
         },
         body: JSON.stringify(payload),
+        signal: AbortSignal.timeout(WHATSAPP_REQUEST_TIMEOUT_MS),
       });
 
       const responseData = await response.json().catch(() => null);
@@ -81,6 +84,7 @@ export async function sendWhatsAppMessage(params: SendWhatsAppParams): Promise<S
           message: params.message,
           timestamp: new Date().toISOString(),
         }),
+        signal: AbortSignal.timeout(WHATSAPP_REQUEST_TIMEOUT_MS),
       });
 
       const responseData = await response.json().catch(() => null);
@@ -99,6 +103,13 @@ export async function sendWhatsAppMessage(params: SendWhatsAppParams): Promise<S
       };
     }
   } catch (err: any) {
+    if (err?.name === 'TimeoutError' || err?.name === 'AbortError') {
+      return {
+        success: false,
+        error: 'A API do WhatsApp não respondeu em 20 segundos. Confira se a Evolution API está ativa e se a instância está conectada.',
+      };
+    }
+
     return {
       success: false,
       error: err.message || 'Falha de conexão com a API do WhatsApp.',
