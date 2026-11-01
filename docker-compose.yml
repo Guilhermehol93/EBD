@@ -20,13 +20,13 @@ services:
     container_name: ebd-revista-manager
     restart: unless-stopped
     ports:
-      - "${PORT:-3000}:3000"
+      - "${APP_HOST_PORT:-3001}:3000"
     environment:
       - NODE_ENV=production
       - NEXT_PUBLIC_SUPABASE_URL=${NEXT_PUBLIC_SUPABASE_URL}
       - NEXT_PUBLIC_SUPABASE_ANON_KEY=${NEXT_PUBLIC_SUPABASE_ANON_KEY}
       - SUPABASE_SERVICE_ROLE_KEY=${SUPABASE_SERVICE_ROLE_KEY}
-      - NEXT_PUBLIC_APP_URL=${NEXT_PUBLIC_APP_URL:-http://localhost:3000}
+      - NEXT_PUBLIC_APP_URL=${NEXT_PUBLIC_APP_URL:-http://localhost:3001}
       - UPLOAD_DIR=/app/data/uploads
       - CRON_SECRET=${CRON_SECRET:-}
       - WHATSAPP_PROVIDER=${WHATSAPP_PROVIDER:-evolution}

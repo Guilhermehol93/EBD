@@ -131,7 +131,7 @@ O Portainer clona o repositório e constrói os serviços. As chaves públicas d
 
 Consulte o [tutorial visual completo de implantação via Portainer](./docs/tutorial-instalacao.html), que também explica a criação do administrador e o pareamento opcional do WhatsApp.
 
-Depois da implantação, acesse `http://umbrel.local:3000` (ou o endereço/IP do Umbrel) e entre no painel em `/admin/login`.
+Depois da implantação, acesse `http://umbrel.local:3001` (ou o endereço/IP do Umbrel) e entre no painel em `/admin/login`.
 
 ---
 
@@ -156,9 +156,9 @@ Depois da implantação, acesse `http://umbrel.local:3000` (ou o endereço/IP do
 | `NEXT_PUBLIC_SUPABASE_URL` | URL da API do projeto Supabase | `https://xyz.supabase.co` |
 | `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Chave pública anônima do Supabase | `eyJhbGciOi...` |
 | `SUPABASE_SERVICE_ROLE_KEY` | Chave de serviço secreta (para cron/worker) | `eyJhbGciOi...` |
-| `NEXT_PUBLIC_APP_URL` | URL base para links nas mensagens | `http://umbrel.local:3000` |
+| `NEXT_PUBLIC_APP_URL` | URL base para links nas mensagens | `http://umbrel.local:3001` |
 | `UPLOAD_DIR` | Diretório de armazenamento persistente | `/app/data/uploads` |
-| `PORT` | Porta HTTP da aplicação | `3000` |
+| `APP_HOST_PORT` | Porta HTTP publicada no Umbrel | `3001` |
 | `CRON_SECRET` | Segredo opcional para chamadas externas autenticadas ao cron | Gerar com `openssl rand -hex 32` |
 | `WHATSAPP_PROVIDER` | Provedor de envio (`evolution` ou `webhook`) | `evolution` |
 | `WHATSAPP_API_URL` | URL interna do container Evolution API | `http://evolution-api:8080` |
