@@ -8,12 +8,30 @@
   --background-end-rgb: 241, 245, 249;
 }
 
+html { scroll-behavior: smooth; }
+
 body {
   color: rgb(var(--foreground-rgb));
   background: #f8fafc;
   min-height: 100vh;
   font-feature-settings: "rlig" 1, "calt" 1;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
 }
+
+body, header, main, section, footer, aside, article, input, textarea, select, button {
+  transition-property: background-color, border-color, color, box-shadow;
+  transition-duration: 180ms;
+}
+
+button, a, input, textarea, select { -webkit-tap-highlight-color: transparent; }
+
+:focus-visible {
+  outline: 3px solid rgba(2, 101, 193, .45);
+  outline-offset: 3px;
+}
+
+::selection { background: #0d81e2; color: white; }
 
 /* Custom scrollbars */
 ::-webkit-scrollbar {
@@ -46,3 +64,47 @@ body {
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
 }
+
+/* Theme tokens and semantic overrides keep existing screens consistent. */
+html.dark {
+  color-scheme: dark;
+  --foreground-rgb: 226, 232, 240;
+  --background-start-rgb: 11, 18, 32;
+  --background-end-rgb: 15, 23, 42;
+  background: #0b1220;
+}
+
+html.dark body { background: #0b1220; color: #e2e8f0; }
+html.dark .bg-white { background-color: #111c2e; }
+html.dark [class~="bg-white/90"],
+html.dark [class~="bg-white/95"] { background-color: rgb(17 28 46 / 0.92); }
+html.dark .bg-slate-50 { background-color: #0b1424; }
+html.dark .bg-slate-100 { background-color: #1c2a3d; }
+html.dark .bg-slate-200 { background-color: #2b3b50; }
+html.dark [class*="from-white"] { background-image: none; background-color: #111c2e; }
+html.dark .text-slate-950,
+html.dark .text-slate-900 { color: #f1f5f9; }
+html.dark .text-slate-800 { color: #e2e8f0; }
+html.dark .text-slate-700 { color: #cbd5e1; }
+html.dark .text-slate-600 { color: #b6c4d6; }
+html.dark .text-slate-500 { color: #9aabc0; }
+html.dark .text-slate-400 { color: #8798ad; }
+html.dark .border-slate-200,
+html.dark .border-slate-200\/70,
+html.dark .border-slate-200\/80,
+html.dark .border-slate-200\/90 { border-color: #29394e; }
+html.dark .border-slate-100 { border-color: #1d2b40; }
+html.dark .divide-slate-100 > :not([hidden]) ~ :not([hidden]) { border-color: #1d2b40; }
+html.dark .hover\:bg-slate-50:hover,
+html.dark .hover\:bg-slate-50\/80:hover { background-color: #1b2a3e; }
+html.dark .hover\:bg-slate-100:hover { background-color: #26364b; }
+html.dark .hover\:bg-white:hover { background-color: #1b2a3e; }
+html.dark thead.bg-slate-50 { background-color: #142136; }
+html.dark input:not([type="checkbox"]):not([type="radio"]),
+html.dark textarea,
+html.dark select { background-color: #111c2e; color: #e2e8f0; border-color: #34465d; }
+html.dark input::placeholder,
+html.dark textarea::placeholder { color: #8293a8; }
+html.dark ::-webkit-scrollbar-track { background: #111c2e; }
+html.dark ::-webkit-scrollbar-thumb { background: #3b4c62; }
+html.dark ::-webkit-scrollbar-thumb:hover { background: #52657d; }

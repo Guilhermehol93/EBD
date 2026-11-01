@@ -42,6 +42,19 @@ export async function PATCH(
     const adminClient = createAdminClient();
 
     const allowedUpdates: Record<string, any> = {};
+    if (body.class_id !== undefined) {
+      if (typeof body.class_id !== "string" || !/^[0-9a-f-]{36}$/i.test(body.class_id)) {
+        return NextResponse.json({ error: "Selecione uma classe válida." }, { status: 400 });
+      }
+      const [{ data: selectedClass }, { data: currentMagazine }] = await Promise.all([
+        adminClient.from("classes").select("id,is_active").eq("id", body.class_id).maybeSingle(),
+        adminClient.from("magazines").select("class_id").eq("id", params.id).maybeSingle(),
+      ]);
+      if (!selectedClass || (!selectedClass.is_active && currentMagazine?.class_id !== selectedClass.id)) {
+        return NextResponse.json({ error: "Selecione uma classe ativa." }, { status: 400 });
+      }
+      allowedUpdates.class_id = body.class_id;
+    }
     const fields = [
       "title",
       "description",

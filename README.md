@@ -42,7 +42,7 @@
 O **EBD Revista Manager** foi projetado especificamente para a **Primeira Igreja Batista de Cataguases** para modernizar o acesso aos materiais de estudo dominical.
 
 O projeto opera sob o princípio de **Custo Zero Absoluto**:
-- **Armazenamento 100% Local:** Os PDFs das revistas e imagens de banner são armazenados diretamente no disco do servidor em um volume Docker persistente (`./data/uploads`), eliminando qualquer necessidade de S3, Google Cloud ou planos pagos de storage.
+- **Armazenamento 100% Local:** Os PDFs das revistas e imagens de banner são armazenados em um volume Docker persistente (`ebd_uploads`), eliminando qualquer necessidade de S3, Google Cloud ou planos pagos de storage.
 - **Autenticação Segura Gratuita:** Supabase Auth gerencia o acesso administrativo sem custo.
 - **WhatsApp Self-Hosted:** Disparo automatizado de mensagens no grupo oficial da EBD através da Evolution API v2 em container local.
 
@@ -127,7 +127,7 @@ O projeto opera sob o princípio de **Custo Zero Absoluto**:
 
 O fluxo recomendado é criar uma Stack no Portainer usando o repositório Git. Abra **Portainer → ambiente Docker local → Stacks → Add stack**, escolha **Repository**, preencha a URL do repositório e a branch, e defina o Compose path como `docker-compose.yml`. Cadastre as variáveis da aplicação na seção **Environment variables** antes de clicar em **Deploy the stack**.
 
-O Portainer clona o repositório e constrói os serviços. As chaves públicas do Supabase são usadas como argumentos de build; a chave service role e os segredos permanecem no servidor. Faça backup de `data/uploads` antes de atualizar a Stack.
+O Portainer clona o repositório e constrói os serviços. As chaves públicas do Supabase são usadas como argumentos de build; a chave service role e os segredos permanecem no servidor. Faça backup do volume Docker `ebd_uploads` antes de atualizar ou remover a Stack.
 
 Consulte o [tutorial visual completo de implantação via Portainer](./docs/tutorial-instalacao.html), que também explica a criação do administrador e o pareamento opcional do WhatsApp.
 
@@ -141,11 +141,13 @@ Depois da implantação, acesse `http://umbrel.local:3001` (ou o endereço/IP do
 2. Acesse o **SQL Editor** no painel do Supabase.
 3. Abra o arquivo [`supabase-schema.sql`](./supabase-schema.sql) deste repositório, copie seu conteúdo e cole no SQL Editor.
 4. Clique em **Run** para criar automaticamente:
-   - Tabela `magazines` (revistas e metadados)
+   - Tabelas `classes` (turmas) e `magazines` (revistas vinculadas às turmas)
    - Tabela `settings` (configurações do banner e igreja)
    - Tabela `logs_whatsapp` (registro de disparos)
    - Triggers e políticas de segurança (Row Level Security)
 5. Crie o primeiro usuário em **Authentication > Users > Add user** e defina `app_metadata` como `{"role":"admin"}`. Repita para cada administrador; não use `user_metadata`, que pode ser alterado pelo próprio usuário.
+
+Se o banco já está em uso, execute [`supabase-classes-migration.sql`](./supabase-classes-migration.sql) no SQL Editor antes de implantar esta versão. Ela cria a **Classe Geral** e associa a ela as revistas existentes. Depois, cadastre as classes reais no painel em **Classes** e altere a classe de cada revista. Os alunos escolhem sua turma no portal; a seleção fica salva no navegador que estão usando.
 
 ---
 
@@ -220,10 +222,10 @@ Acesse o Painel Administrativo em **Configurações & Banner**, insira o ID do g
 No Portainer, abra **Stacks**, selecione `ebd-revista-manager` e escolha o container para ver seus logs.
 
 ### Como atualizar a aplicação para uma nova versão do Git?
-Envie as alterações para a branch configurada e, no Portainer, abra a Stack e escolha **Pull and redeploy**. Faça backup de `data/uploads` antes da atualização.
+Envie as alterações para a branch configurada e, no Portainer, abra a Stack e escolha **Pull and redeploy**. O volume `ebd_uploads` preserva os uploads durante o redeploy; faça backup dele antes de remover a Stack.
 
 ### Erro de permissão ao salvar arquivos PDF?
-Confira os logs do container `ebd-app` no Portainer e as permissões da pasta `data/uploads`. Evite permissões abertas como `777`.
+Confira os logs do container `ebd-app` no Portainer e confirme que a Stack usa o volume nomeado `ebd_uploads` em `/app/data/uploads`. Evite permissões abertas como `777`.
 
 ---
 

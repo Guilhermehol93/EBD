@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import {
@@ -16,6 +16,7 @@ import {
   Info,
 } from "lucide-react";
 import { formatFileSize, getNextSunday } from "@/lib/utils";
+import { EbdClass } from "@/lib/types";
 
 export default function NovaRevistaPage() {
   const router = useRouter();
@@ -28,6 +29,8 @@ export default function NovaRevistaPage() {
 
   // Form states
   const [file, setFile] = useState<File | null>(null);
+  const [classes, setClasses] = useState<EbdClass[]>([]);
+  const [classId, setClassId] = useState("");
   const [dragActive, setDragActive] = useState(false);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -39,6 +42,17 @@ export default function NovaRevistaPage() {
   const [customMessage, setCustomMessage] = useState("");
   const [loading, setLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
+
+  useEffect(() => {
+    fetch("/api/classes", { cache: "no-store" })
+      .then(async (response) => {
+        const data = await response.json();
+        if (!response.ok) throw new Error(data.error || "Falha ao carregar as classes.");
+        setClasses(data.classes || []);
+        setClassId(data.classes?.find((item: EbdClass) => item.slug === "geral")?.id || data.classes?.[0]?.id || "");
+      })
+      .catch((error) => setErrorMsg(error.message));
+  }, []);
 
   // File drag handlers
   const handleDrag = (e: React.DragEvent) => {
@@ -113,6 +127,7 @@ export default function NovaRevistaPage() {
     try {
       const formData = new FormData();
       formData.append("file", file);
+      formData.append("class_id", classId);
       formData.append("title", title);
       formData.append("description", description);
       formData.append("edition_quarter", editionQuarter);
@@ -242,7 +257,14 @@ export default function NovaRevistaPage() {
             <span>Informações da Lição</span>
           </h2>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="md:col-span-2">
+              <label className="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-1.5">Classe da EBD *</label>
+              <select required value={classId} onChange={(e) => setClassId(e.target.value)} disabled={classes.length === 0} className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-church-500/20 focus:border-church-500">
+                {classes.length === 0 ? <option value="">Cadastre uma classe primeiro</option> : classes.map((item) => <option key={item.id} value={item.id}>{item.name}</option>)}
+              </select>
+              {classes.length === 0 && <p className="mt-1.5 text-xs text-amber-700">Cadastre uma classe em Administração → Classes antes de enviar a revista.</p>}
+            </div>
             <div className="md:col-span-2">
               <label className="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-1.5">
                 Título da Lição / Revista *

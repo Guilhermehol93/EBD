@@ -14,7 +14,7 @@ import {
   Download,
   Trash2,
 } from "lucide-react";
-import { Magazine, MagazineStatus } from "@/lib/types";
+import { EbdClass, Magazine, MagazineStatus } from "@/lib/types";
 import { formatFileSize } from "@/lib/utils";
 
 export default function EditarRevistaPage({ params }: { params: { id: string } }) {
@@ -22,6 +22,8 @@ export default function EditarRevistaPage({ params }: { params: { id: string } }
   const id = params.id;
 
   const [magazine, setMagazine] = useState<Magazine | null>(null);
+  const [classes, setClasses] = useState<EbdClass[]>([]);
+  const [classId, setClassId] = useState("");
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
@@ -41,10 +43,14 @@ export default function EditarRevistaPage({ params }: { params: { id: string } }
   useEffect(() => {
     const fetchMagazine = async () => {
       try {
-        const res = await fetch(`/api/revistas/${id}`);
+        const [res, classesRes] = await Promise.all([fetch(`/api/revistas/${id}`), fetch("/api/classes", { cache: "no-store" })]);
         if (!res.ok) throw new Error("Revista não encontrada.");
+        const classesData = await classesRes.json();
+        if (!classesRes.ok) throw new Error(classesData.error || "Falha ao carregar classes.");
         const data: Magazine = await res.json();
         setMagazine(data);
+        setClasses(classesData.classes || []);
+        setClassId(data.class_id);
         setTitle(data.title);
         setDescription(data.description || "");
         setEditionQuarter(data.edition_quarter || "");
@@ -75,6 +81,7 @@ export default function EditarRevistaPage({ params }: { params: { id: string } }
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           title,
+          class_id: classId,
           description,
           edition_quarter: editionQuarter,
           lesson_number: lessonNumber ? Number(lessonNumber) : null,
@@ -192,6 +199,12 @@ export default function EditarRevistaPage({ params }: { params: { id: string } }
       <form onSubmit={handleSave} className="space-y-6">
         <div className="bg-white rounded-2xl p-6 border border-slate-200/80 shadow-sm space-y-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="md:col-span-2">
+              <label className="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-1.5">Classe da EBD *</label>
+              <select required value={classId} onChange={(e) => setClassId(e.target.value)} className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-church-500/20 focus:border-church-500">
+                {classes.map((item) => <option key={item.id} value={item.id}>{item.name}{item.is_active ? "" : " (inativa)"}</option>)}
+              </select>
+            </div>
             <div className="md:col-span-2">
               <label className="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-1.5">
                 Título da Lição *

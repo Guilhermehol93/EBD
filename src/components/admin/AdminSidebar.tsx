@@ -11,6 +11,7 @@ import {
   ExternalLink,
   LogOut,
   Church,
+  UsersRound,
 } from "lucide-react";
 
 export function AdminSidebar() {
@@ -26,6 +27,11 @@ export function AdminSidebar() {
       label: "Revistas da EBD",
       href: "/admin/revistas",
       icon: BookOpen,
+    },
+    {
+      label: "Classes",
+      href: "/admin/classes",
+      icon: UsersRound,
     },
     {
       label: "Nova Revista",
@@ -45,23 +51,23 @@ export function AdminSidebar() {
   ];
 
   return (
-    <aside className="w-64 bg-slate-900 border-r border-slate-800 flex flex-col justify-between shrink-0 min-h-screen text-slate-300">
+    <aside className="relative z-20 flex w-full shrink-0 flex-col justify-between border-b border-slate-200 bg-white text-slate-600 lg:min-h-screen lg:w-[264px] lg:border-b-0 lg:border-r lg:border-slate-800 lg:bg-gradient-to-b lg:from-slate-950 lg:to-slate-900 lg:text-slate-300">
       <div>
         {/* Brand */}
-        <div className="p-6 border-b border-slate-800">
+        <div className="border-b border-slate-100 p-4 lg:border-slate-800 lg:p-6">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-church-600 to-church-500 text-white flex items-center justify-center shadow-lg shadow-church-900/40">
+            <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-gradient-to-tr from-church-600 to-sky-400 text-white shadow-lg shadow-church-900/30 lg:h-11 lg:w-11">
               <BookOpen className="w-5 h-5" />
             </div>
             <div>
-              <h2 className="text-sm font-bold text-white tracking-tight">EBD Manager</h2>
-              <p className="text-[11px] text-slate-400">PIB Cataguases</p>
+              <h2 className="text-sm font-bold tracking-tight text-slate-900 lg:text-white">EBD Manager</h2>
+              <p className="text-[11px] text-slate-500 lg:text-slate-400">PIB Cataguases · Administração</p>
             </div>
           </div>
         </div>
 
         {/* Navigation links */}
-        <nav className="p-4 space-y-1.5">
+        <nav className="flex gap-1 overflow-x-auto p-2 lg:block lg:space-y-1.5 lg:p-4">
           {links.map((link) => {
             const Icon = link.icon;
             const isActive =
@@ -73,10 +79,10 @@ export function AdminSidebar() {
               <Link
                 key={link.href}
                 href={link.href}
-                className={`flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-semibold transition-all ${
+                className={`flex shrink-0 items-center gap-2 rounded-xl px-3 py-2.5 text-xs font-semibold transition-all lg:w-full lg:gap-3 lg:px-3.5 lg:text-sm ${
                   isActive
-                    ? "bg-church-600 text-white shadow-md shadow-church-900/30"
-                    : "text-slate-400 hover:text-white hover:bg-slate-800/80"
+                    ? "bg-church-700 text-white shadow-md shadow-church-900/20 lg:bg-church-600 lg:shadow-church-900/30"
+                    : "text-slate-500 hover:bg-slate-100 hover:text-slate-900 lg:text-slate-400 lg:hover:bg-slate-800/80 lg:hover:text-white"
                 }`}
               >
                 <Icon className={`w-4 h-4 ${isActive ? "text-white" : "text-slate-400"}`} />
@@ -88,11 +94,11 @@ export function AdminSidebar() {
       </div>
 
       {/* Footer of sidebar */}
-      <div className="p-4 border-t border-slate-800 space-y-2">
+      <div className="flex items-center gap-2 border-t border-slate-100 p-2 lg:block lg:space-y-2 lg:border-slate-800 lg:p-4">
         <Link
           href="/"
           target="_blank"
-          className="flex items-center justify-between px-3.5 py-2 rounded-xl text-xs font-medium text-slate-400 hover:text-white hover:bg-slate-800/60 transition-colors"
+          className="hidden items-center justify-between rounded-xl px-3.5 py-2 text-xs font-medium text-slate-500 transition-colors hover:bg-slate-100 hover:text-slate-900 lg:flex lg:text-slate-400 lg:hover:bg-slate-800/60 lg:hover:text-white"
         >
           <span className="flex items-center gap-2">
             <ExternalLink className="w-3.5 h-3.5" />
@@ -104,7 +110,7 @@ export function AdminSidebar() {
         <form action="/api/auth/signout" method="POST">
           <button
             type="submit"
-            className="w-full flex items-center gap-2 px-3.5 py-2.5 rounded-xl text-xs font-semibold text-rose-400 hover:bg-rose-950/30 hover:text-rose-300 transition-colors"
+            className="flex w-full items-center justify-center gap-2 rounded-xl px-3 py-2 text-xs font-semibold text-rose-600 transition-colors hover:bg-rose-50 lg:justify-start lg:px-3.5 lg:py-2.5 lg:text-rose-400 lg:hover:bg-rose-950/30 lg:hover:text-rose-300"
           >
             <LogOut className="w-4 h-4" />
             <span>Encerrar Sessão</span>

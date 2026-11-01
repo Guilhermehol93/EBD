@@ -1,11 +1,10 @@
 import { createClient } from "@/lib/supabase/server";
 import { Navbar } from "@/components/public/Navbar";
 import { HeroBanner } from "@/components/public/HeroBanner";
-import { FeaturedMagazine } from "@/components/public/FeaturedMagazine";
-import { PreviousMagazines } from "@/components/public/PreviousMagazines";
+import { StudentClassPortal } from "@/components/public/StudentClassPortal";
 import { ChurchInfoSection } from "@/components/public/ChurchInfoSection";
 import { Footer } from "@/components/public/Footer";
-import { ChurchSettings, Magazine } from "@/lib/types";
+import { ChurchSettings, EbdClass, Magazine } from "@/lib/types";
 
 export const revalidate = 60; // Revalidate public cache every 60 seconds
 
@@ -22,32 +21,14 @@ export default async function HomePage() {
 
   const settings = settingsData as ChurchSettings | null;
 
-  // 2. Fetch the featured (current/latest) published magazine
-  const { data: featuredData } = await supabase
-    .from("magazines")
-    .select("*")
-    .eq("status", "published")
-    .lte("publish_at", now)
-    .order("lesson_date", { ascending: false })
-    .order("created_at", { ascending: false })
-    .limit(1);
-
-  const featuredMagazine = featuredData && featuredData.length > 0 ? (featuredData[0] as Magazine) : null;
-
-  // 3. Fetch previous published magazines (excluding the featured one if exists)
-  let previousMagazines: Magazine[] = [];
-  if (featuredMagazine) {
-    const { data: prevData } = await supabase
-      .from("magazines")
-      .select("*")
-      .eq("status", "published")
-      .lte("publish_at", now)
-      .neq("id", featuredMagazine.id)
-      .order("lesson_date", { ascending: false })
-      .limit(6);
-
-    previousMagazines = (prevData as Magazine[]) || [];
-  }
+  // Each student sees material grouped by the class selected in their browser.
+  const [{ data: classesData }, { data: magazinesData }] = await Promise.all([
+    supabase.from("classes").select("*").eq("is_active", true).order("sort_order").order("name"),
+    supabase.from("magazines").select("*").eq("status", "published").lte("publish_at", now)
+      .order("lesson_date", { ascending: false }).order("created_at", { ascending: false }),
+  ]);
+  const classes = (classesData as EbdClass[]) || [];
+  const magazines = (magazinesData as Magazine[]) || [];
 
   return (
     <div className="min-h-screen flex flex-col bg-slate-50">
@@ -60,14 +41,10 @@ export default async function HomePage() {
           bannerImageUrl={settings?.banner_image_url}
           serviceTimes={settings?.service_times}
           churchAddress={settings?.church_address}
-          sundayDate={featuredMagazine?.lesson_date}
+          sundayDate={magazines[0]?.lesson_date}
         />
 
-        <FeaturedMagazine magazine={featuredMagazine} />
-
-        {previousMagazines.length > 0 && (
-          <PreviousMagazines magazines={previousMagazines} showViewAllLink={true} />
-        )}
+        <StudentClassPortal classes={classes} magazines={magazines} />
 
         <ChurchInfoSection settings={settings} />
       </main>

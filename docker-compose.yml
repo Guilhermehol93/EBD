@@ -36,8 +36,8 @@ services:
       - WHATSAPP_GROUP_JID=${WHATSAPP_GROUP_JID}
       - WHATSAPP_DEFAULT_MESSAGE=${WHATSAPP_DEFAULT_MESSAGE}
     volumes:
-      # Armazenamento persistente local dos arquivos PDF das revistas e banners
-      - ./data/uploads:/app/data/uploads
+      # Volume persistente Docker: evita permissões incorretas no checkout do Portainer
+      - ebd_uploads:/app/data/uploads
     depends_on:
       evolution-api:
         condition: service_started
@@ -96,6 +96,8 @@ services:
 # Volumes Persistentes Docker
 # ------------------------------------------------------------------------------
 volumes:
+  ebd_uploads:
+    driver: local
   evolution_instances:
     driver: local
   evolution_store:

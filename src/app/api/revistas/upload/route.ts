@@ -21,12 +21,13 @@ export async function POST(request: NextRequest) {
     const description = (formData.get("description") as string) || null;
     const edition_quarter = (formData.get("edition_quarter") as string) || "4Âº Trimestre / 2026";
     const lesson_number_str = formData.get("lesson_number") as string;
+    const class_id = formData.get("class_id") as string;
     const lesson_date = formData.get("lesson_date") as string;
     const publish_at_str = formData.get("publish_at") as string;
     const whatsapp_scheduled = formData.get("whatsapp_scheduled") === "true";
     const whatsapp_message_custom = (formData.get("whatsapp_message_custom") as string) || null;
 
-    if (!file || !title || !lesson_date || !publish_at_str) {
+    if (!file || !title || !lesson_date || !publish_at_str || !class_id) {
       return NextResponse.json(
         { error: "Arquivo PDF, TÃ­tulo, Data da LiÃ§Ã£o e HorÃ¡rio de PublicaÃ§Ã£o sÃ£o obrigatÃ³rios." },
         { status: 400 }
@@ -59,9 +60,15 @@ export async function POST(request: NextRequest) {
 
     // 4. Save metadata to Supabase Postgres
     const adminClient = createAdminClient();
+    const { data: selectedClass } = await adminClient.from("classes").select("id").eq("id", class_id).eq("is_active", true).maybeSingle();
+    if (!selectedClass) {
+      await deleteStoredFile(relativePath);
+      return NextResponse.json({ error: "Selecione uma classe ativa para esta revista." }, { status: 400 });
+    }
     const { data: magazine, error: dbError } = await adminClient
       .from("magazines")
       .insert({
+        class_id,
         title,
         description,
         edition_quarter,

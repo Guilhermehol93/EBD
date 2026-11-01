@@ -1,7 +1,19 @@
 export type MagazineStatus = 'scheduled' | 'published' | 'archived';
 
+export interface EbdClass {
+  id: string;
+  name: string;
+  slug: string;
+  description: string | null;
+  sort_order: number;
+  is_active: boolean;
+  created_at: string;
+  updated_at: string;
+}
+
 export interface Magazine {
   id: string;
+  class_id: string;
   title: string;
   description: string | null;
   edition_quarter: string | null;

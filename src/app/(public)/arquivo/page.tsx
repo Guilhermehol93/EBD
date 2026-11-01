@@ -1,8 +1,8 @@
 import { createClient } from "@/lib/supabase/server";
 import { Navbar } from "@/components/public/Navbar";
 import { Footer } from "@/components/public/Footer";
-import { PreviousMagazines } from "@/components/public/PreviousMagazines";
-import { ChurchSettings, Magazine } from "@/lib/types";
+import { StudentClassPortal } from "@/components/public/StudentClassPortal";
+import { ChurchSettings, EbdClass, Magazine } from "@/lib/types";
 
 export const revalidate = 60;
 
@@ -19,14 +19,14 @@ export default async function ArchivePage() {
 
   const settings = settingsData as ChurchSettings | null;
 
-  // 2. Fetch all published magazines ordered by date
-  const { data: magazinesData } = await supabase
-    .from("magazines")
-    .select("*")
-    .eq("status", "published")
-    .lte("publish_at", now)
-    .order("lesson_date", { ascending: false });
+  // Keep archived lessons scoped to the class selected by the student.
+  const [{ data: classesData }, { data: magazinesData }] = await Promise.all([
+    supabase.from("classes").select("*").eq("is_active", true).order("sort_order").order("name"),
+    supabase.from("magazines").select("*").eq("status", "published").lte("publish_at", now)
+      .order("lesson_date", { ascending: false }).order("created_at", { ascending: false }),
+  ]);
 
+  const classes = (classesData as EbdClass[]) || [];
   const magazines = (magazinesData as Magazine[]) || [];
 
   return (
@@ -49,7 +49,7 @@ export default async function ArchivePage() {
           </div>
         </div>
 
-        <PreviousMagazines magazines={magazines} showViewAllLink={false} />
+        <StudentClassPortal classes={classes} magazines={magazines} archiveOnly />
       </main>
 
       <Footer churchName={settings?.church_name} />

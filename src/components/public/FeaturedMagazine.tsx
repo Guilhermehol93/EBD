@@ -56,7 +56,7 @@ export function FeaturedMagazine({ magazine }: FeaturedMagazineProps) {
 
   return (
     <div id="revista-atual" className="max-w-5xl mx-auto px-4 sm:px-6 -mt-8 sm:-mt-12 relative z-10">
-      <div className="bg-white rounded-3xl border border-slate-200/90 shadow-2xl shadow-church-950/5 overflow-hidden transition-all hover:shadow-church-950/10">
+      <div className="overflow-hidden rounded-[2rem] border border-white bg-white shadow-2xl shadow-slate-900/10 ring-1 ring-slate-900/[0.03] transition-all hover:shadow-slate-900/15">
         <div className="p-6 sm:p-8 md:p-10">
           {/* Top badges */}
           <div className="flex flex-wrap items-center justify-between gap-3 mb-6">
@@ -88,7 +88,7 @@ export function FeaturedMagazine({ magazine }: FeaturedMagazineProps) {
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
             {/* Visual Cover / Icon Box */}
             <div className="md:col-span-4 flex justify-center">
-              <div className="relative group w-full max-w-[240px] aspect-[3/4] rounded-2xl bg-gradient-to-tr from-church-900 via-church-800 to-church-700 p-6 flex flex-col justify-between text-white shadow-xl shadow-church-900/20 transform group-hover:-translate-y-1 transition-transform cursor-pointer"
+              <div className="group relative flex aspect-[3/4] w-full max-w-[240px] cursor-pointer flex-col justify-between overflow-hidden rounded-[1.5rem] bg-gradient-to-br from-[#071626] via-church-800 to-sky-600 p-6 text-white shadow-2xl shadow-church-900/25 transition-transform duration-300 hover:-translate-y-1"
                    onClick={() => setIsModalOpen(true)}>
                 <div className="flex justify-between items-start">
                   <span className="text-[10px] uppercase font-bold tracking-widest text-church-200">

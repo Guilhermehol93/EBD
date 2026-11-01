@@ -30,6 +30,8 @@ export default async function AdminDashboardPage() {
     .order("created_at", { ascending: false });
 
   const magazines = (magazinesData as Magazine[]) || [];
+  const { data: classesData } = await adminClient.from("classes").select("id,name");
+  const classesById = new Map((classesData || []).map((item) => [item.id, item.name]));
 
   // Compute stats
   const totalMagazines = magazines.length;
@@ -47,9 +49,9 @@ export default async function AdminDashboardPage() {
   return (
     <div className="space-y-8">
       {/* Top Welcome & Quick Actions */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div className="flex flex-col gap-4 rounded-[1.75rem] border border-white bg-gradient-to-r from-white via-white to-sky-50/70 p-5 shadow-sm shadow-slate-900/[0.03] sm:flex-row sm:items-center sm:justify-between sm:p-7">
         <div>
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
+          <h1 className="text-2xl font-black tracking-tight text-slate-950 sm:text-3xl">
             Painel Geral
           </h1>
           <p className="text-sm text-slate-500 mt-1">
@@ -106,7 +108,7 @@ export default async function AdminDashboardPage() {
 
       {/* KPI Stats Cards */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
-        <div className="bg-white rounded-2xl p-5 border border-slate-200/80 shadow-sm">
+        <div className="rounded-2xl border border-slate-200/70 bg-white p-5 shadow-sm shadow-slate-900/[0.03] transition duration-200 hover:-translate-y-0.5 hover:shadow-md">
           <div className="flex items-center justify-between mb-3">
             <span className="text-xs font-bold uppercase tracking-wider text-slate-500">
               Total Revistas
@@ -123,7 +125,7 @@ export default async function AdminDashboardPage() {
           </span>
         </div>
 
-        <div className="bg-white rounded-2xl p-5 border border-slate-200/80 shadow-sm">
+        <div className="rounded-2xl border border-emerald-100 bg-gradient-to-br from-white to-emerald-50/60 p-5 shadow-sm shadow-slate-900/[0.03] transition duration-200 hover:-translate-y-0.5 hover:shadow-md">
           <div className="flex items-center justify-between mb-3">
             <span className="text-xs font-bold uppercase tracking-wider text-emerald-600">
               Publicadas
@@ -140,7 +142,7 @@ export default async function AdminDashboardPage() {
           </span>
         </div>
 
-        <div className="bg-white rounded-2xl p-5 border border-slate-200/80 shadow-sm">
+        <div className="rounded-2xl border border-sky-100 bg-gradient-to-br from-white to-sky-50/60 p-5 shadow-sm shadow-slate-900/[0.03] transition duration-200 hover:-translate-y-0.5 hover:shadow-md">
           <div className="flex items-center justify-between mb-3">
             <span className="text-xs font-bold uppercase tracking-wider text-church-600">
               Leituras & Downloads
@@ -157,7 +159,7 @@ export default async function AdminDashboardPage() {
           </span>
         </div>
 
-        <div className="bg-white rounded-2xl p-5 border border-slate-200/80 shadow-sm">
+        <div className="rounded-2xl border border-teal-100 bg-gradient-to-br from-white to-teal-50/60 p-5 shadow-sm shadow-slate-900/[0.03] transition duration-200 hover:-translate-y-0.5 hover:shadow-md">
           <div className="flex items-center justify-between mb-3">
             <span className="text-xs font-bold uppercase tracking-wider text-emerald-600">
               WhatsApp Enviados
@@ -176,7 +178,7 @@ export default async function AdminDashboardPage() {
       </div>
 
       {/* Recent Magazines Section */}
-      <div className="bg-white rounded-2xl border border-slate-200/80 shadow-sm overflow-hidden">
+      <div className="overflow-hidden rounded-[1.75rem] border border-slate-200/70 bg-white shadow-sm shadow-slate-900/[0.04]">
         <div className="px-6 py-4 border-b border-slate-200/80 flex items-center justify-between">
           <div>
             <h2 className="text-base font-bold text-slate-900">Revistas Recentes</h2>
@@ -215,7 +217,7 @@ export default async function AdminDashboardPage() {
                     <td className="px-6 py-4">
                       <div className="font-bold text-slate-900 line-clamp-1">{mag.title}</div>
                       <div className="text-xs text-slate-400">
-                        {mag.edition_quarter} • Lição {mag.lesson_number} • {formatFileSize(mag.file_size)}
+                        {classesById.get(mag.class_id) || "Classe"} • {mag.edition_quarter} • Lição {mag.lesson_number} • {formatFileSize(mag.file_size)}
                       </div>
                     </td>
                     <td className="px-6 py-4 text-slate-600 whitespace-nowrap">

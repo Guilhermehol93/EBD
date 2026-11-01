@@ -16,7 +16,7 @@ import {
   CheckCircle,
   AlertTriangle,
 } from "lucide-react";
-import { Magazine } from "@/lib/types";
+import { EbdClass, Magazine } from "@/lib/types";
 import { formatDatePtBR, formatDateTimePtBR, formatFileSize } from "@/lib/utils";
 import { StatusBadge } from "@/components/admin/StatusBadge";
 import { WhatsAppBadge } from "@/components/admin/WhatsAppBadge";
@@ -24,6 +24,7 @@ import { createClient } from "@/lib/supabase/client";
 
 export default function AdminRevistasPage() {
   const [magazines, setMagazines] = useState<Magazine[]>([]);
+  const [classes, setClasses] = useState<EbdClass[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
   const [filterTab, setFilterTab] = useState<"all" | "published" | "scheduled" | "archived">("all");
@@ -33,13 +34,17 @@ export default function AdminRevistasPage() {
   const fetchMagazines = async () => {
     setLoading(true);
     const supabase = createClient();
-    const { data, error } = await supabase
-      .from("magazines")
-      .select("*")
-      .order("created_at", { ascending: false });
+    const [{ data, error }, classesResponse] = await Promise.all([
+      supabase.from("magazines").select("*").order("created_at", { ascending: false }),
+      fetch("/api/classes", { cache: "no-store" }),
+    ]);
 
     if (!error && data) {
       setMagazines(data as Magazine[]);
+    }
+    if (classesResponse.ok) {
+      const classesData = await classesResponse.json();
+      setClasses(classesData.classes || []);
     }
     setLoading(false);
   };
@@ -106,8 +111,9 @@ export default function AdminRevistasPage() {
     const q = searchTerm.toLowerCase();
     const titleMatch = m.title.toLowerCase().includes(q);
     const quarterMatch = (m.edition_quarter || "").toLowerCase().includes(q);
+    const classMatch = (classes.find((item) => item.id === m.class_id)?.name || "").toLowerCase().includes(q);
     const numberMatch = m.lesson_number ? String(m.lesson_number).includes(q) : false;
-    return titleMatch || quarterMatch || numberMatch;
+    return titleMatch || quarterMatch || classMatch || numberMatch;
   });
 
   return (
@@ -244,7 +250,7 @@ export default function AdminRevistasPage() {
                     <td className="px-6 py-4">
                       <div className="font-bold text-slate-900 leading-snug">{mag.title}</div>
                       <div className="text-xs text-slate-400 mt-0.5">
-                        {mag.edition_quarter} • Lição {mag.lesson_number} • {formatFileSize(mag.file_size)}
+                        {classes.find((item) => item.id === mag.class_id)?.name || "Classe"} • {mag.edition_quarter} • Lição {mag.lesson_number} • {formatFileSize(mag.file_size)}
                       </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-slate-600 text-xs font-medium">

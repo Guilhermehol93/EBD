@@ -6,6 +6,7 @@ import Link from "next/link";
 import { BookOpen, Lock, Mail, ArrowRight, Eye, EyeOff, AlertCircle, ArrowLeft } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
 import { isAdminUser } from "@/lib/auth";
+import { ThemeToggle } from "@/components/ThemeToggle";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -45,7 +46,7 @@ export default function LoginPage() {
 
       if (!isAdminUser(data.user)) {
         await supabase.auth.signOut();
-        setErrorMsg("E-mail e senha válidos, mas esta conta ainda não tem acesso administrativo. Peça a um administrador para atribuir app_metadata.role = admin.");
+        setErrorMsg("E-mail e senha válidos, mas esta conta não tem permissão para acessar o painel administrativo. Entre em contato com o responsável pelo sistema.");
         setLoading(false);
         return;
       }
@@ -60,17 +61,21 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-navy-900 via-church-950 to-slate-900 p-4 sm:p-6 lg:p-8">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-100 via-white to-sky-100 p-4 sm:p-6 lg:p-8 dark:from-navy-900 dark:via-church-950 dark:to-slate-900">
       {/* Decorative ambient lights */}
-      <div className="absolute top-1/4 left-1/4 w-72 h-72 bg-church-500/10 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-1/4 right-1/4 w-72 h-72 bg-gold-500/10 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute top-1/4 left-1/4 w-72 h-72 bg-church-500/10 rounded-full blur-3xl pointer-events-none dark:bg-church-500/10" />
+      <div className="absolute bottom-1/4 right-1/4 w-72 h-72 bg-gold-500/10 rounded-full blur-3xl pointer-events-none dark:bg-gold-500/10" />
+
+      <div className="fixed right-4 top-4 z-20 sm:right-6 sm:top-6">
+        <ThemeToggle />
+      </div>
 
       <div className="relative w-full max-w-md">
         {/* Back to public link */}
         <div className="mb-6">
           <Link
             href="/"
-            className="inline-flex items-center gap-2 text-xs font-medium text-slate-400 hover:text-white transition-colors"
+            className="inline-flex items-center gap-2 text-xs font-medium text-slate-600 hover:text-slate-950 transition-colors dark:text-slate-400 dark:hover:text-white"
           >
             <ArrowLeft className="w-4 h-4" />
             <span>Voltar ao Portal Público da EBD</span>
@@ -78,15 +83,15 @@ export default function LoginPage() {
         </div>
 
         {/* Card */}
-        <div className="bg-slate-900/90 border border-slate-800 rounded-3xl p-8 sm:p-10 shadow-2xl backdrop-blur-xl">
+        <div className="rounded-3xl border border-white/80 bg-white/90 p-8 shadow-2xl shadow-slate-900/10 backdrop-blur-xl sm:p-10 dark:border-slate-800 dark:bg-slate-900/90">
           <div className="text-center mb-8">
             <div className="w-14 h-14 mx-auto mb-4 rounded-2xl bg-gradient-to-tr from-church-600 to-church-500 text-white flex items-center justify-center shadow-lg shadow-church-900/50">
               <BookOpen className="w-7 h-7" />
             </div>
-            <h1 className="text-2xl font-bold text-white tracking-tight">
+            <h1 className="text-2xl font-bold tracking-tight text-slate-950 dark:text-white">
               Acesso Administrativo
             </h1>
-            <p className="text-xs sm:text-sm text-slate-400 mt-1">
+            <p className="mt-1 text-xs text-slate-600 dark:text-slate-400 sm:text-sm">
               Escola Bíblica Dominical • PIB Cataguases
             </p>
           </div>
@@ -100,7 +105,7 @@ export default function LoginPage() {
 
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <label className="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-2">
+              <label className="mb-2 block text-xs font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300">
                 E-mail do Administrador
               </label>
               <div className="relative">
@@ -111,13 +116,13 @@ export default function LoginPage() {
                   placeholder="admin@pibcataguases.com.br"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full pl-10 pr-4 py-3 bg-slate-950/80 border border-slate-800 rounded-xl text-sm text-white placeholder-slate-600 focus:outline-none focus:ring-2 focus:ring-church-500/30 focus:border-church-500 transition-all"
+                  className="w-full rounded-xl border border-slate-300 bg-white py-3 pl-10 pr-4 text-sm text-slate-900 placeholder-slate-400 transition-all focus:border-church-500 focus:outline-none focus:ring-2 focus:ring-church-500/30 dark:border-slate-800 dark:bg-slate-950/80 dark:text-white dark:placeholder-slate-600"
                 />
               </div>
             </div>
 
             <div>
-              <label className="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-2">
+              <label className="mb-2 block text-xs font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300">
                 Senha de Acesso
               </label>
               <div className="relative">
@@ -128,12 +133,12 @@ export default function LoginPage() {
                   placeholder="••••••••••••"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full pl-10 pr-10 py-3 bg-slate-950/80 border border-slate-800 rounded-xl text-sm text-white placeholder-slate-600 focus:outline-none focus:ring-2 focus:ring-church-500/30 focus:border-church-500 transition-all"
+                  className="w-full rounded-xl border border-slate-300 bg-white py-3 pl-10 pr-10 text-sm text-slate-900 placeholder-slate-400 transition-all focus:border-church-500 focus:outline-none focus:ring-2 focus:ring-church-500/30 dark:border-slate-800 dark:bg-slate-950/80 dark:text-white dark:placeholder-slate-600"
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-500 hover:text-slate-300 transition-colors"
+                  className="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-500 transition-colors hover:text-slate-800 dark:hover:text-slate-300"
                 >
                   {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                 </button>
@@ -156,8 +161,8 @@ export default function LoginPage() {
             </button>
           </form>
 
-          <div className="mt-8 pt-6 border-t border-slate-800 text-center">
-            <p className="text-[11px] text-slate-500">
+          <div className="mt-8 border-t border-slate-200 pt-6 text-center dark:border-slate-800">
+            <p className="text-[11px] text-slate-600 dark:text-slate-500">
               Autenticação segura via Supabase Auth. Acesso restrito a administradores autorizados da PIB Cataguases.
             </p>
           </div>
