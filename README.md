@@ -17,6 +17,8 @@
 
 [Documentação Interativa (HTML)](./docs/index.html) • [Guia de Instalação no Umbrel](#-guia-de-instalação-no-umbrel-os-via-github) • [Configuração do WhatsApp](#-automação-do-whatsapp)
 
+**[Abrir tutorial visual de instalação e implementação](./docs/tutorial-instalacao.html)**
+
 </div>
 
 ---
