@@ -1,4 +1,4 @@
-<div align="center">
+﻿<div align="center">
 
 # 📖 EBD Revista Manager
 ### Sistema de Gerenciamento e Distribuição Digital de Revistas da EBD
@@ -175,7 +175,7 @@ Abra o navegador no seu computador ou celular conectado na mesma rede:
    - Tabela `settings` (configurações do banner e igreja)
    - Tabela `logs_whatsapp` (registro de disparos)
    - Triggers e políticas de segurança (Row Level Security)
-5. Crie o primeiro usuário administrador em **Authentication > Users > Add user**.
+5. Crie o primeiro usuário em **Authentication > Users > Add user** e defina `app_metadata` como `{"role":"admin"}`. Repita para cada administrador; não use `user_metadata`, que pode ser alterado pelo próprio usuário.
 
 ---
 
@@ -206,15 +206,15 @@ O arquivo `docker-compose.yml` inclui a **Evolution API v2**, que roda localment
 Execute no terminal do servidor:
 ```bash
 curl -X POST http://localhost:8080/instance/create \
-  -H "apikey: ebd_evolution_cataguases_key_2026" \
+  -H "apikey: SUA_CHAVE_FORTE" \
   -H "Content-Type: application/json" \
-  -d '{"instanceName": "pib-cataguases-ebd", "token": "ebd_evolution_cataguases_key_2026", "qrcode": true}'
+  -d '{"instanceName": "pib-cataguases-ebd", "token": "SUA_CHAVE_FORTE", "qrcode": true}'
 ```
 
 ### 2. Parear o Celular (QR Code)
-Abra no navegador:
+A porta da Evolution API fica acessível apenas no próprio servidor. Crie um túnel SSH (`ssh -L 8080:127.0.0.1:8080 umbrel@umbrel.local`) e abra no navegador do computador:
 ```
-http://umbrel.local:8080/instance/connect/pib-cataguases-ebd
+http://localhost:8080/instance/connect/pib-cataguases-ebd
 ```
 No WhatsApp do celular da igreja: vá em **Aparelhos Conectados > Conectar um Aparelho** e aponte para o QR Code gerado.
 

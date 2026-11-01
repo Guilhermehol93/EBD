@@ -25,10 +25,10 @@ services:
       - SUPABASE_SERVICE_ROLE_KEY=${SUPABASE_SERVICE_ROLE_KEY}
       - NEXT_PUBLIC_APP_URL=${NEXT_PUBLIC_APP_URL:-http://localhost:3000}
       - UPLOAD_DIR=/app/data/uploads
-      - CRON_SECRET=${CRON_SECRET:-ebd_segredo_cron_cataguases_2026_x7k9}
+      - CRON_SECRET=${CRON_SECRET:?Configure um CRON_SECRET forte no arquivo .env}
       - WHATSAPP_PROVIDER=${WHATSAPP_PROVIDER:-evolution}
       - WHATSAPP_API_URL=${WHATSAPP_API_URL:-http://evolution-api:8080}
-      - WHATSAPP_API_KEY=${WHATSAPP_API_KEY:-ebd_evolution_cataguases_key_2026}
+      - WHATSAPP_API_KEY=${WHATSAPP_API_KEY:?Configure WHATSAPP_API_KEY forte no arquivo .env}
       - WHATSAPP_INSTANCE=${WHATSAPP_INSTANCE:-pib-cataguases-ebd}
       - WHATSAPP_GROUP_JID=${WHATSAPP_GROUP_JID}
       - WHATSAPP_DEFAULT_MESSAGE=${WHATSAPP_DEFAULT_MESSAGE}
@@ -48,11 +48,11 @@ services:
     container_name: ebd-whatsapp-evolution
     restart: unless-stopped
     ports:
-      - "8080:8080"
+      - "127.0.0.1:8080:8080"
     environment:
       - SERVER_URL=${WHATSAPP_EVOLUTION_PUBLIC_URL:-http://localhost:8080}
       - AUTHENTICATION_TYPE=apikey
-      - AUTHENTICATION_API_KEY=${WHATSAPP_API_KEY:-ebd_evolution_cataguases_key_2026}
+      - AUTHENTICATION_API_KEY=${WHATSAPP_API_KEY:?Configure WHATSAPP_API_KEY forte no arquivo .env}
       - CONFIG_SESSION_PHONE_CLIENT=EBD Manager PIB Cataguases
       - CONFIG_SESSION_PHONE_NAME=Chrome
       - LOG_LEVEL=ERROR,WARN,INFO

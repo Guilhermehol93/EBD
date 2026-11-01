@@ -1,12 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { dispatchMagazineWhatsApp } from "@/lib/whatsapp";
+import { isAdminUser } from "@/lib/auth";
 
 export async function POST(request: NextRequest) {
   const supabase = createClient();
   const { data: { user } } = await supabase.auth.getUser();
 
-  if (!user) {
+  if (!isAdminUser(user)) {
     return NextResponse.json({ error: "Não autorizado." }, { status: 401 });
   }
 

@@ -3,6 +3,7 @@ import fs from "fs";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { createClient } from "@/lib/supabase/server";
 import { getAbsoluteFilePath } from "@/lib/storage";
+import { isAdminUser } from "@/lib/auth";
 
 export async function GET(
   request: NextRequest,
@@ -26,7 +27,7 @@ export async function GET(
   if (magazine.status !== "published" || new Date(magazine.publish_at) > new Date()) {
     const supabase = createClient();
     const { data: { user } } = await supabase.auth.getUser();
-    if (!user) {
+    if (!isAdminUser(user)) {
       return NextResponse.json({ error: "Conteúdo ainda não disponível." }, { status: 403 });
     }
   }

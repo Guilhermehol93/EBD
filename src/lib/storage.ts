@@ -70,9 +70,12 @@ export async function saveBannerImage(
  */
 export function getAbsoluteFilePath(relativePath: string): string {
   const baseDir = getUploadBaseDir();
-  // Prevent path traversal attacks
-  const safePath = path.normalize(relativePath).replace(/^(\.\.[\/\\])+/, "");
-  return path.join(baseDir, safePath);
+  if (path.isAbsolute(relativePath)) throw new Error("Invalid stored file path");
+  const resolved = path.resolve(baseDir, relativePath);
+  if (resolved !== baseDir && !resolved.startsWith(`${baseDir}${path.sep}`)) {
+    throw new Error("Invalid stored file path");
+  }
+  return resolved;
 }
 
 export function fileExists(relativePath: string): boolean {

@@ -1,9 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
 import fs from "fs";
 import path from "path";
-import { saveBannerImage, getAbsoluteFilePath } from "@/lib/storage";
+import { deleteStoredFile, saveBannerImage, getAbsoluteFilePath } from "@/lib/storage";
 import { createClient } from "@/lib/supabase/server";
 import { createAdminClient } from "@/lib/supabase/admin";
+import { isAdminUser } from "@/lib/auth";
 
 export async function GET(request: NextRequest) {
   const fileParam = request.nextUrl.searchParams.get("file");
@@ -12,12 +13,13 @@ export async function GET(request: NextRequest) {
   }
 
   // Prevent directory traversal
-  const safePath = path.normalize(fileParam).replace(/^(\.\.[\/\\])+/, "");
-  if (!safePath.startsWith("banners") && !safePath.startsWith("magazines")) {
+  const safePath = path.normalize(fileParam);
+  if (path.isAbsolute(fileParam) || safePath.split(path.sep)[0] !== "banners" || safePath.split(path.sep).length !== 2) {
     return NextResponse.json({ error: "Caminho não autorizado." }, { status: 403 });
   }
 
-  const fullPath = getAbsoluteFilePath(safePath);
+  let fullPath: string;
+  try { fullPath = getAbsoluteFilePath(safePath); } catch { return NextResponse.json({ error: "Caminho não autorizado." }, { status: 403 }); }
   if (!fs.existsSync(fullPath)) {
     return NextResponse.json({ error: "Imagem não encontrada." }, { status: 404 });
   }
@@ -56,7 +58,7 @@ export async function POST(request: NextRequest) {
   const supabase = createClient();
   const { data: { user } } = await supabase.auth.getUser();
 
-  if (!user) {
+  if (!isAdminUser(user)) {
     return NextResponse.json({ error: "Não autorizado" }, { status: 401 });
   }
 
@@ -68,18 +70,30 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "Nenhum arquivo enviado." }, { status: 400 });
     }
 
+    const allowedTypes: Record<string, string> = { ".jpg": "image/jpeg", ".jpeg": "image/jpeg", ".png": "image/png", ".webp": "image/webp" };
+    const extension = path.extname(file.name).toLowerCase();
+    if (file.size > 5 * 1024 * 1024 || allowedTypes[extension] !== file.type) {
+      return NextResponse.json({ error: "Envie uma imagem JPG, PNG ou WebP de até 5 MB." }, { status: 400 });
+    }
+
     const arrayBuffer = await file.arrayBuffer();
     const buffer = Buffer.from(arrayBuffer);
+    const signatureValid = extension === ".png" ? buffer.subarray(0, 8).equals(Buffer.from([137,80,78,71,13,10,26,10])) : extension === ".webp" ? buffer.toString("ascii", 0, 4) === "RIFF" && buffer.toString("ascii", 8, 12) === "WEBP" : buffer[0] === 0xff && buffer[1] === 0xd8;
+    if (!signatureValid) return NextResponse.json({ error: "Conteúdo de imagem inválido." }, { status: 400 });
 
     const relativePath = await saveBannerImage(buffer, file.name);
     const bannerUrl = `/api/files/banner?file=${encodeURIComponent(relativePath)}`;
 
     // Update settings table with new banner URL
     const adminClient = createAdminClient();
-    await adminClient
+    const { error } = await adminClient
       .from("settings")
       .update({ banner_image_url: bannerUrl })
       .eq("id", "general");
+    if (error) {
+      await deleteStoredFile(relativePath);
+      return NextResponse.json({ error: "Não foi possível atualizar as configurações do banner." }, { status: 500 });
+    }
 
     return NextResponse.json({
       success: true,

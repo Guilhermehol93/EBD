@@ -1,12 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { sendWhatsAppMessage } from "@/lib/whatsapp";
+import { isAdminUser } from "@/lib/auth";
 
 export async function POST(request: NextRequest) {
   const supabase = createClient();
   const { data: { user } } = await supabase.auth.getUser();
 
-  if (!user) {
+  if (!isAdminUser(user)) {
     return NextResponse.json({ error: "Não autorizado." }, { status: 401 });
   }
 
@@ -30,10 +31,7 @@ export async function POST(request: NextRequest) {
     const result = await sendWhatsAppMessage({
       recipient,
       message: testMessage,
-      provider: body.provider,
-      apiUrl: body.apiUrl,
-      apiKey: body.apiKey,
-      instanceName: body.instanceName,
+      // Destination and credentials are server-controlled to prevent SSRF.
     });
 
     if (!result.success) {

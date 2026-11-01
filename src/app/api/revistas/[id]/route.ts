@@ -2,11 +2,14 @@ import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { deleteStoredFile } from "@/lib/storage";
+import { isAdminUser } from "@/lib/auth";
 
 export async function GET(
   request: NextRequest,
   { params }: { params: { id: string } }
 ) {
+  const supabase = createClient();
+  const { data: { user } } = await supabase.auth.getUser();
   const adminClient = createAdminClient();
   const { data: magazine, error } = await adminClient
     .from("magazines")
@@ -14,11 +17,13 @@ export async function GET(
     .eq("id", params.id)
     .single();
 
-  if (error || !magazine) {
+  if (error || !magazine || ((magazine.status !== "published" || new Date(magazine.publish_at) > new Date()) && !isAdminUser(user))) {
     return NextResponse.json({ error: "Revista não encontrada." }, { status: 404 });
   }
 
-  return NextResponse.json(magazine);
+  if (isAdminUser(user)) return NextResponse.json(magazine);
+  const { file_path, file_name, file_size, whatsapp_message_custom, ...publicMagazine } = magazine;
+  return NextResponse.json(publicMagazine);
 }
 
 export async function PATCH(
@@ -28,7 +33,7 @@ export async function PATCH(
   const supabase = createClient();
   const { data: { user } } = await supabase.auth.getUser();
 
-  if (!user) {
+  if (!isAdminUser(user)) {
     return NextResponse.json({ error: "Não autorizado." }, { status: 401 });
   }
 
@@ -79,7 +84,7 @@ export async function DELETE(
   const supabase = createClient();
   const { data: { user } } = await supabase.auth.getUser();
 
-  if (!user) {
+  if (!isAdminUser(user)) {
     return NextResponse.json({ error: "Não autorizado." }, { status: 401 });
   }
 

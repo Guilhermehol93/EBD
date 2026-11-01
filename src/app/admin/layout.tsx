@@ -1,6 +1,7 @@
 import { createClient } from "@/lib/supabase/server";
 import { AdminSidebar } from "@/components/admin/AdminSidebar";
 import { AdminHeader } from "@/components/admin/AdminHeader";
+import { isAdminUser } from "@/lib/auth";
 
 export default async function AdminLayout({
   children,
@@ -11,7 +12,7 @@ export default async function AdminLayout({
   const { data: { user } } = await supabase.auth.getUser();
 
   // If no user is logged in, this is the login page - render clean full screen
-  if (!user) {
+  if (!isAdminUser(user)) {
     return <>{children}</>;
   }
 

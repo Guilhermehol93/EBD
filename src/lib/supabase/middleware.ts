@@ -1,5 +1,6 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
+import { isAdminUser } from "@/lib/auth";
 
 export async function updateSession(request: NextRequest) {
   let supabaseResponse = NextResponse.next({
@@ -40,7 +41,7 @@ export async function updateSession(request: NextRequest) {
 
   // Protect all /admin routes except /admin/login
   if (pathname.startsWith("/admin") && !pathname.startsWith("/admin/login")) {
-    if (!user) {
+    if (!isAdminUser(user)) {
       const url = request.nextUrl.clone();
       url.pathname = "/admin/login";
       url.searchParams.set("redirect", pathname);
@@ -49,7 +50,7 @@ export async function updateSession(request: NextRequest) {
   }
 
   // If already logged in and visiting /admin/login, redirect to /admin/dashboard
-  if (pathname === "/admin/login" && user) {
+  if (pathname === "/admin/login" && isAdminUser(user)) {
     const url = request.nextUrl.clone();
     url.pathname = "/admin/dashboard";
     return NextResponse.redirect(url);

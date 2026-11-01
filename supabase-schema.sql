@@ -128,6 +128,9 @@ ALTER TABLE public.logs_whatsapp ENABLE ROW LEVEL SECURITY;
 
 -- Políticas para 'magazines':
 -- A) Leitura pública: qualquer visitante pode ver revistas publicadas cuja data seja menor ou igual a agora
+DROP POLICY IF EXISTS "Public Read Published Magazines" ON public.magazines;
+DROP POLICY IF EXISTS "Admin Full Access Magazines" ON public.magazines;
+DROP POLICY IF EXISTS "Service Role Full Access Magazines" ON public.magazines;
 CREATE POLICY "Public Read Published Magazines" ON public.magazines
     FOR SELECT
     USING (status = 'published' AND publish_at <= now());
@@ -136,8 +139,8 @@ CREATE POLICY "Public Read Published Magazines" ON public.magazines
 CREATE POLICY "Admin Full Access Magazines" ON public.magazines
     FOR ALL
     TO authenticated
-    USING (true)
-    WITH CHECK (true);
+    USING ((auth.jwt() -> 'app_metadata' ->> 'role') = 'admin')
+    WITH CHECK ((auth.jwt() -> 'app_metadata' ->> 'role') = 'admin');
 
 -- C) Service role: acesso total (para workers e API routes)
 CREATE POLICY "Service Role Full Access Magazines" ON public.magazines
@@ -148,6 +151,9 @@ CREATE POLICY "Service Role Full Access Magazines" ON public.magazines
 
 -- Políticas para 'settings':
 -- A) Leitura pública das configurações do site
+DROP POLICY IF EXISTS "Public Read Settings" ON public.settings;
+DROP POLICY IF EXISTS "Admin Update Settings" ON public.settings;
+DROP POLICY IF EXISTS "Service Role Full Access Settings" ON public.settings;
 CREATE POLICY "Public Read Settings" ON public.settings
     FOR SELECT
     USING (true);
@@ -156,8 +162,8 @@ CREATE POLICY "Public Read Settings" ON public.settings
 CREATE POLICY "Admin Update Settings" ON public.settings
     FOR ALL
     TO authenticated
-    USING (true)
-    WITH CHECK (true);
+    USING ((auth.jwt() -> 'app_metadata' ->> 'role') = 'admin')
+    WITH CHECK ((auth.jwt() -> 'app_metadata' ->> 'role') = 'admin');
 
 -- C) Service role: acesso total
 CREATE POLICY "Service Role Full Access Settings" ON public.settings
@@ -168,10 +174,12 @@ CREATE POLICY "Service Role Full Access Settings" ON public.settings
 
 -- Políticas para 'logs_whatsapp':
 -- A) Administradores autenticados: visualização de logs
+DROP POLICY IF EXISTS "Admin Read Logs" ON public.logs_whatsapp;
+DROP POLICY IF EXISTS "Service Role Full Access Logs" ON public.logs_whatsapp;
 CREATE POLICY "Admin Read Logs" ON public.logs_whatsapp
     FOR SELECT
     TO authenticated
-    USING (true);
+    USING ((auth.jwt() -> 'app_metadata' ->> 'role') = 'admin');
 
 -- B) Service role: gravação e leitura de logs
 CREATE POLICY "Service Role Full Access Logs" ON public.logs_whatsapp
