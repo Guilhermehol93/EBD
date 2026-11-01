@@ -65,6 +65,9 @@ services:
       - DATABASE_CONNECTION_URI=postgresql://evolution:${EVOLUTION_DB_PASSWORD:?Configure EVOLUTION_DB_PASSWORD no Portainer}@evolution-db:5432/evolution
       - DATABASE_CONNECTION_CLIENT_NAME=ebd-evolution
       - DATABASE_SAVE_DATA_INSTANCE=true
+      # No Redis service is part of this stack; use Evolution's local cache.
+      - CACHE_REDIS_ENABLED=false
+      - CACHE_LOCAL_ENABLED=true
     depends_on:
       evolution-db:
         condition: service_healthy
