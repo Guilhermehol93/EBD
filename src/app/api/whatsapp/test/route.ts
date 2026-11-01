@@ -83,7 +83,36 @@ export async function POST(request: NextRequest) {
         return NextResponse.json({ success: false, error }, { status: stateResponse.status });
       }
 
-      const connectionState = stateData?.instance?.state;
+      let connectionState =
+        stateData?.instance?.state ?? stateData?.state ?? stateData?.instance?.connectionStatus;
+
+      // The manager's instance list can report the live connection status while
+      // connectionState still returns a stale "connecting" value during reconnects.
+      if (connectionState !== "open") {
+        try {
+          const instancesResponse = await fetch(`${apiUrl}/instance/fetchInstances`, {
+            headers: { apikey: apiKey },
+            signal: AbortSignal.timeout(5_000),
+          });
+          if (instancesResponse.ok) {
+            const instancesData = await instancesResponse.json().catch(() => null);
+            const instances = Array.isArray(instancesData)
+              ? instancesData
+              : Array.isArray(instancesData?.instances)
+                ? instancesData.instances
+                : [];
+            const matchingInstance = instances.find(
+              (item: any) =>
+                (item?.name === instanceName || item?.instanceName === instanceName) &&
+                (item?.connectionStatus === "open" || item?.state === "open")
+            );
+            if (matchingInstance) connectionState = "open";
+          }
+        } catch {
+          // Keep the original connectionState result if the fallback is unavailable.
+        }
+      }
+
       if (connectionState !== "open") {
         return NextResponse.json(
           {
