@@ -143,7 +143,7 @@ export default function EditarRevistaPage({ params }: { params: { id: string } }
 
   return (
     <div className="max-w-4xl mx-auto space-y-6">
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col items-stretch gap-3 sm:flex-row sm:items-center sm:justify-between">
         <Link
           href="/admin/revistas"
           className="inline-flex items-center gap-2 text-xs font-semibold text-slate-500 hover:text-slate-800 transition-colors"
@@ -152,7 +152,7 @@ export default function EditarRevistaPage({ params }: { params: { id: string } }
           <span>Voltar para Lista de Revistas</span>
         </Link>
 
-        <div className="flex items-center gap-2">
+        <div className="flex flex-wrap items-center gap-2">
           <a
             href={`/api/files/download/${id}`}
             download
@@ -197,7 +197,7 @@ export default function EditarRevistaPage({ params }: { params: { id: string } }
       )}
 
       <form onSubmit={handleSave} className="space-y-6">
-        <div className="bg-white rounded-2xl p-6 border border-slate-200/80 shadow-sm space-y-4">
+        <div className="bg-white rounded-2xl p-4 sm:p-6 border border-slate-200/80 shadow-sm space-y-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="md:col-span-2">
               <label className="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-1.5">Classe da EBD *</label>
@@ -318,10 +318,10 @@ export default function EditarRevistaPage({ params }: { params: { id: string } }
           </div>
         </div>
 
-        <div className="flex items-center justify-end gap-3">
+        <div className="flex flex-col-reverse gap-2 sm:flex-row sm:items-center sm:justify-end sm:gap-3">
           <Link
             href="/admin/revistas"
-            className="px-5 py-2.5 rounded-xl text-sm font-semibold text-slate-600 hover:bg-slate-200 transition-colors"
+            className="rounded-xl px-5 py-2.5 text-center text-sm font-semibold text-slate-600 transition-colors hover:bg-slate-200 sm:text-left"
           >
             Voltar
           </Link>
@@ -329,7 +329,7 @@ export default function EditarRevistaPage({ params }: { params: { id: string } }
           <button
             type="submit"
             disabled={saving}
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-bold text-sm text-white bg-church-700 hover:bg-church-800 disabled:opacity-50 transition-all shadow-md shadow-church-700/20"
+            className="inline-flex min-h-11 items-center justify-center gap-2 rounded-xl bg-church-700 px-6 py-3 text-sm font-bold text-white shadow-md shadow-church-700/20 transition-all hover:bg-church-800 disabled:opacity-50"
           >
             {saving ? (
               <span>Salvando alterações...</span>

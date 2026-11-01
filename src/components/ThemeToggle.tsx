@@ -29,7 +29,7 @@ export function ThemeToggle({ compact = false }: { compact?: boolean }) {
       aria-pressed={isDark}
       title={`Ativar modo ${isDark ? "claro" : "escuro"}`}
       className={`inline-flex shrink-0 items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white text-slate-700 shadow-sm transition hover:border-church-200 hover:bg-church-50 hover:text-church-800 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200 dark:hover:border-slate-600 dark:hover:bg-slate-700 ${
-        compact ? "h-10 w-10" : "h-10 px-3 text-xs font-semibold"
+        compact ? "h-11 w-11" : "h-11 px-3 text-xs font-semibold"
       }`}
     >
       {isDark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}

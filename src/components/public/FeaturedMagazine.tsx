@@ -88,7 +88,7 @@ export function FeaturedMagazine({ magazine }: FeaturedMagazineProps) {
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
             {/* Visual Cover / Icon Box */}
             <div className="md:col-span-4 flex justify-center">
-              <div className="group relative flex aspect-[3/4] w-full max-w-[240px] cursor-pointer flex-col justify-between overflow-hidden rounded-[1.5rem] bg-gradient-to-br from-[#071626] via-church-800 to-sky-600 p-6 text-white shadow-2xl shadow-church-900/25 transition-transform duration-300 hover:-translate-y-1"
+              <div className="group relative flex aspect-[3/4] w-full max-w-[240px] cursor-pointer flex-col justify-between overflow-hidden rounded-[1.5rem] bg-gradient-to-br from-taupe-950 via-church-900 to-church-600 p-6 text-white shadow-2xl shadow-church-900/25 transition-transform duration-300 hover:-translate-y-1"
                    onClick={() => setIsModalOpen(true)}>
                 <div className="flex justify-between items-start">
                   <span className="text-[10px] uppercase font-bold tracking-widest text-church-200">
@@ -132,10 +132,10 @@ export function FeaturedMagazine({ magazine }: FeaturedMagazineProps) {
               )}
 
               {/* Action Buttons */}
-              <div className="flex flex-wrap items-center gap-3 sm:gap-4 mb-6">
+              <div className="mb-6 flex flex-col items-stretch gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-4">
                 <button
                   onClick={() => setIsModalOpen(true)}
-                  className="inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-xl font-bold text-sm sm:text-base text-white bg-church-700 hover:bg-church-800 transition-all shadow-lg shadow-church-700/25 hover:shadow-church-700/40 transform hover:-translate-y-0.5 active:translate-y-0 flex-1 sm:flex-initial"
+                  className="inline-flex w-full items-center justify-center gap-2.5 rounded-xl bg-church-700 px-5 py-3.5 text-sm font-bold text-white shadow-lg shadow-church-700/25 transition-all hover:-translate-y-0.5 hover:bg-church-800 hover:shadow-church-700/40 active:translate-y-0 sm:w-auto sm:px-6 sm:text-base"
                 >
                   <Eye className="w-5 h-5 text-white" />
                   <span>Ler Revista Online</span>
@@ -144,7 +144,7 @@ export function FeaturedMagazine({ magazine }: FeaturedMagazineProps) {
                 <a
                   href={downloadUrl}
                   download
-                  className="inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-xl font-semibold text-sm sm:text-base text-slate-800 bg-slate-100 hover:bg-slate-200 border border-slate-300 transition-all flex-1 sm:flex-initial shadow-sm"
+                  className="inline-flex w-full items-center justify-center gap-2.5 rounded-xl border border-slate-300 bg-slate-100 px-5 py-3.5 text-sm font-semibold text-slate-800 shadow-sm transition-all hover:bg-slate-200 sm:w-auto sm:px-6 sm:text-base"
                 >
                   <Download className="w-5 h-5 text-slate-600" />
                   <span>Baixar PDF ({formatFileSize(magazine.file_size)})</span>
@@ -152,7 +152,7 @@ export function FeaturedMagazine({ magazine }: FeaturedMagazineProps) {
 
                 <button
                   onClick={handleShare}
-                  className="p-3.5 rounded-xl text-slate-600 hover:text-slate-900 bg-slate-100 hover:bg-slate-200 border border-slate-300 transition-colors"
+                  className="self-end rounded-xl border border-slate-300 bg-slate-100 p-3.5 text-slate-600 transition-colors hover:bg-slate-200 hover:text-slate-900 sm:self-auto"
                   title="Compartilhar lição"
                 >
                   {copied ? <CheckCircle2 className="w-5 h-5 text-emerald-600" /> : <Share2 className="w-5 h-5" />}

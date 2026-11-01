@@ -192,7 +192,7 @@ export default function NovaRevistaPage() {
 
       <form onSubmit={handleSubmit} className="space-y-6">
         {/* Step 1: File Upload Box */}
-        <div className="bg-white rounded-2xl p-6 border border-slate-200/80 shadow-sm space-y-4">
+        <div className="bg-white rounded-2xl p-4 sm:p-6 border border-slate-200/80 shadow-sm space-y-4">
           <h2 className="text-base font-bold text-slate-900 flex items-center gap-2">
             <span className="w-6 h-6 rounded-full bg-church-100 text-church-700 text-xs flex items-center justify-center font-bold">
               1
@@ -249,7 +249,7 @@ export default function NovaRevistaPage() {
         </div>
 
         {/* Step 2: Metadata Details */}
-        <div className="bg-white rounded-2xl p-6 border border-slate-200/80 shadow-sm space-y-4">
+        <div className="bg-white rounded-2xl p-4 sm:p-6 border border-slate-200/80 shadow-sm space-y-4">
           <h2 className="text-base font-bold text-slate-900 flex items-center gap-2">
             <span className="w-6 h-6 rounded-full bg-church-100 text-church-700 text-xs flex items-center justify-center font-bold">
               2
@@ -358,7 +358,7 @@ export default function NovaRevistaPage() {
         </div>
 
         {/* Step 3: WhatsApp Automation */}
-        <div className="bg-white rounded-2xl p-6 border border-slate-200/80 shadow-sm space-y-4">
+        <div className="bg-white rounded-2xl p-4 sm:p-6 border border-slate-200/80 shadow-sm space-y-4">
           <div className="flex items-center justify-between">
             <h2 className="text-base font-bold text-slate-900 flex items-center gap-2">
               <span className="w-6 h-6 rounded-full bg-church-100 text-church-700 text-xs flex items-center justify-center font-bold">
@@ -405,10 +405,10 @@ export default function NovaRevistaPage() {
         </div>
 
         {/* Submit */}
-        <div className="flex items-center justify-end gap-3 pt-4">
+        <div className="flex flex-col-reverse gap-2 pt-4 sm:flex-row sm:items-center sm:justify-end sm:gap-3">
           <Link
             href="/admin/revistas"
-            className="px-5 py-2.5 rounded-xl text-sm font-semibold text-slate-600 hover:bg-slate-200 transition-colors"
+            className="rounded-xl px-5 py-2.5 text-center text-sm font-semibold text-slate-600 transition-colors hover:bg-slate-200 sm:text-left"
           >
             Cancelar
           </Link>
@@ -416,7 +416,7 @@ export default function NovaRevistaPage() {
           <button
             type="submit"
             disabled={loading}
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-bold text-sm text-white bg-church-700 hover:bg-church-800 disabled:opacity-50 transition-all shadow-md shadow-church-700/20"
+            className="inline-flex min-h-11 items-center justify-center gap-2 rounded-xl bg-church-700 px-6 py-3 text-sm font-bold text-white shadow-md shadow-church-700/20 transition-all hover:bg-church-800 disabled:opacity-50"
           >
             {loading ? (
               <span>Salvando e processando...</span>

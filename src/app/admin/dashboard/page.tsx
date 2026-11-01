@@ -107,7 +107,7 @@ export default async function AdminDashboardPage() {
       )}
 
       {/* KPI Stats Cards */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+      <div className="grid grid-cols-1 gap-4 min-[380px]:grid-cols-2 sm:gap-6 lg:grid-cols-4">
         <div className="rounded-2xl border border-slate-200/70 bg-white p-5 shadow-sm shadow-slate-900/[0.03] transition duration-200 hover:-translate-y-0.5 hover:shadow-md">
           <div className="flex items-center justify-between mb-3">
             <span className="text-xs font-bold uppercase tracking-wider text-slate-500">
@@ -199,7 +199,27 @@ export default async function AdminDashboardPage() {
             Nenhuma revista cadastrada ainda. Clique em &quot;Upload de Nova Revista&quot; para começar!
           </div>
         ) : (
-          <div className="overflow-x-auto">
+          <>
+          <div className="space-y-3 p-3 2xl:hidden">
+            {magazines.slice(0, 5).map((mag) => (
+              <article key={mag.id} className="rounded-2xl border border-slate-200/80 bg-slate-50 p-4">
+                <div className="flex items-start justify-between gap-3">
+                  <div className="min-w-0"><h3 className="break-words font-bold text-slate-900">{mag.title}</h3><p className="mt-1 break-words text-xs text-slate-500">{classesById.get(mag.class_id) || "Classe"} · {mag.edition_quarter} · Lição {mag.lesson_number}</p></div>
+                  <StatusBadge status={mag.status} publishAt={mag.publish_at} />
+                </div>
+                <div className="mt-3 grid grid-cols-2 gap-3 border-t border-slate-200/80 pt-3 text-xs">
+                  <div><span className="block text-slate-400">Aula</span><span className="font-medium text-slate-700">{formatDatePtBR(mag.lesson_date)}</span></div>
+                  <div><span className="block text-slate-400">Liberação</span><span className="font-medium text-slate-700">{formatDateTimePtBR(mag.publish_at)}</span></div>
+                  <div className="col-span-2"><WhatsAppBadge scheduled={mag.whatsapp_scheduled} sent={mag.whatsapp_sent} sentAt={mag.whatsapp_sent_at} /></div>
+                </div>
+                <div className="mt-3 flex items-center justify-between border-t border-slate-200/80 pt-3">
+                  <span className="text-xs text-slate-500">{formatFileSize(mag.file_size)}</span>
+                  <Link href={`/admin/revistas/${mag.id}/editar`} className="rounded-lg bg-white px-3 py-2 text-xs font-semibold text-church-700 shadow-sm">Editar revista</Link>
+                </div>
+              </article>
+            ))}
+          </div>
+          <div className="hidden overflow-x-auto 2xl:block">
             <table className="w-full text-left text-sm">
               <thead className="bg-slate-50 text-slate-500 text-xs uppercase font-semibold border-b border-slate-200/80">
                 <tr>
@@ -259,6 +279,7 @@ export default async function AdminDashboardPage() {
               </tbody>
             </table>
           </div>
+          </>
         )}
       </div>
     </div>

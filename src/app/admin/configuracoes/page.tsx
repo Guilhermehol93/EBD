@@ -198,7 +198,7 @@ export default function AdminConfiguracoesPage() {
     <div className="max-w-4xl mx-auto space-y-6">
       {/* Toast Alert */}
       {toastMessage && (
-        <div className="fixed bottom-6 right-6 z-50 bg-slate-900 text-white px-5 py-3 rounded-2xl shadow-2xl border border-slate-700 flex items-center gap-3 animate-in slide-in-from-bottom duration-200">
+        <div className="fixed bottom-4 left-4 right-4 z-50 flex items-center gap-3 rounded-2xl border border-slate-700 bg-slate-900 px-5 py-3 text-white shadow-2xl animate-in slide-in-from-bottom duration-200 sm:bottom-6 sm:left-auto sm:right-6 sm:max-w-sm">
           <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
           <span className="text-sm font-medium">{toastMessage}</span>
         </div>
@@ -223,7 +223,7 @@ export default function AdminConfiguracoesPage() {
 
       <form onSubmit={handleSaveSettings} className="space-y-6">
         {/* Banner Customization */}
-        <div className="bg-white rounded-2xl p-6 border border-slate-200/80 shadow-sm space-y-4">
+        <div className="bg-white rounded-2xl p-4 sm:p-6 border border-slate-200/80 shadow-sm space-y-4">
           <h2 className="text-base font-bold text-slate-900 flex items-center gap-2">
             <ImageIcon className="w-5 h-5 text-church-600" />
             <span>Banner do Portal Público</span>
@@ -272,14 +272,14 @@ export default function AdminConfiguracoesPage() {
                   type="button"
                   onClick={() => fileInputRef.current?.click()}
                   disabled={uploadingBanner}
-                  className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-bold bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-300 transition-colors"
+                  className="inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-xl border border-slate-300 bg-slate-100 px-3 py-2.5 text-center text-xs font-bold leading-tight text-slate-700 transition-colors hover:bg-slate-200 sm:w-auto sm:px-4"
                 >
                   <Upload className="w-4 h-4 text-slate-500" />
                   <span>{uploadingBanner ? "Enviando imagem..." : "Selecionar Nova Imagem de Banner"}</span>
                 </button>
 
                 {bannerImageUrl && (
-                  <span className="text-xs text-slate-500 truncate max-w-sm">
+                  <span className="w-full min-w-0 max-w-sm truncate text-xs text-slate-500 sm:w-auto">
                     Atual: {bannerImageUrl}
                   </span>
                 )}
@@ -289,7 +289,7 @@ export default function AdminConfiguracoesPage() {
         </div>
 
         {/* Church Info */}
-        <div className="bg-white rounded-2xl p-6 border border-slate-200/80 shadow-sm space-y-4">
+        <div className="bg-white rounded-2xl p-4 sm:p-6 border border-slate-200/80 shadow-sm space-y-4">
           <h2 className="text-base font-bold text-slate-900 flex items-center gap-2">
             <Globe className="w-5 h-5 text-church-600" />
             <span>Identidade da Igreja</span>
@@ -351,7 +351,7 @@ export default function AdminConfiguracoesPage() {
         </div>
 
         {/* Social Links */}
-        <div className="bg-white rounded-2xl p-6 border border-slate-200/80 shadow-sm space-y-4">
+        <div className="bg-white rounded-2xl p-4 sm:p-6 border border-slate-200/80 shadow-sm space-y-4">
           <h2 className="text-base font-bold text-slate-900 flex items-center gap-2">
             <Share2 className="w-5 h-5 text-church-600" />
             <span>Redes Sociais & Links Públicos</span>
@@ -426,7 +426,7 @@ export default function AdminConfiguracoesPage() {
         </div>
 
         {/* WhatsApp Integration Settings */}
-        <div className="bg-white rounded-2xl p-6 border border-slate-200/80 shadow-sm space-y-4">
+        <div className="bg-white rounded-2xl p-4 sm:p-6 border border-slate-200/80 shadow-sm space-y-4">
           <div className="flex items-center justify-between">
             <h2 className="text-base font-bold text-slate-900 flex items-center gap-2">
               <MessageSquare className="w-5 h-5 text-emerald-600" />
@@ -515,11 +515,11 @@ export default function AdminConfiguracoesPage() {
         </div>
 
         {/* Submit */}
-        <div className="flex items-center justify-end gap-3 pt-4">
+        <div className="flex justify-end gap-3 pt-4">
           <button
             type="submit"
             disabled={saving}
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-bold text-sm text-white bg-church-700 hover:bg-church-800 disabled:opacity-50 transition-all shadow-md shadow-church-700/20"
+            className="inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-xl bg-church-700 px-3 py-3 text-center text-sm font-bold leading-tight text-white shadow-md shadow-church-700/20 transition-all hover:bg-church-800 disabled:opacity-50 sm:w-auto sm:px-6"
           >
             {saving ? (
               <span>Salvando configurações...</span>

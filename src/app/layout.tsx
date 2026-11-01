@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   title: "EBD Revista Manager | PIB Cataguases",
   description: "Portal de Revistas e Lições da Escola Bíblica Dominical da Primeira Igreja Batista de Cataguases",
   icons: {
-    icon: "/favicon.ico",
+    icon: "/pib.jpg",
   },
 };
 

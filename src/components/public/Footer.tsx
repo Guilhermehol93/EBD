@@ -9,9 +9,9 @@ export function Footer({ churchName = "Primeira Igreja Batista de Cataguases" }:
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-slate-950 text-slate-400 py-12 border-t border-slate-900">
+    <footer className="border-t border-taupe-800 bg-taupe-950 py-12 text-slate-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-6 pb-8 border-b border-slate-900">
+        <div className="flex flex-col items-center justify-between gap-6 border-b border-taupe-800 pb-8 sm:flex-row">
           <div className="flex items-center gap-3">
             <div className="w-9 h-9 rounded-xl bg-church-700 text-white flex items-center justify-center">
               <BookOpen className="w-5 h-5" />

@@ -49,7 +49,7 @@ export function PdfViewerModal({ magazine, isOpen, onClose }: PdfViewerModalProp
               <h3 className="text-sm sm:text-base font-bold truncate leading-tight">
                 {magazine.title}
               </h3>
-              <p className="text-xs text-slate-400 truncate">
+              <p className="truncate text-xs text-white/70">
                 Lição {magazine.lesson_number ? String(magazine.lesson_number).padStart(2, "0") : "Especial"} • {magazine.edition_quarter || "EBD PIB Cataguases"}
               </p>
             </div>

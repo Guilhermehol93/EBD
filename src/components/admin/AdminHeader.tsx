@@ -11,14 +11,14 @@ interface AdminHeaderProps {
 export function AdminHeader({ userEmail }: AdminHeaderProps) {
   return (
     <header className="sticky top-0 z-10 flex min-h-16 shrink-0 items-center justify-between border-b border-slate-200/80 bg-white/90 px-4 shadow-sm backdrop-blur-xl sm:px-6 lg:px-8">
-      <div className="flex items-center gap-2">
-        <span className="inline-flex items-center gap-1.5 rounded-full border border-church-100 bg-church-50 px-3 py-1.5 text-[11px] font-bold text-church-700 sm:text-xs">
+      <div className="flex min-w-0 items-center gap-2">
+        <span className="inline-flex items-center gap-1.5 rounded-full border border-church-100 bg-church-50 px-3 py-1.5 text-[11px] font-bold text-church-700 sm:text-xs [&>span]:hidden sm:[&>span]:inline">
           <ShieldCheck className="w-3.5 h-3.5 text-church-600" />
           <span>Painel de Administração</span>
         </span>
       </div>
 
-      <div className="flex items-center gap-3">
+      <div className="flex shrink-0 items-center gap-1.5 sm:gap-3">
         <ThemeToggle compact />
         <Link
           href="/"
@@ -31,10 +31,12 @@ export function AdminHeader({ userEmail }: AdminHeaderProps) {
 
         <Link
           href="/admin/revistas/nova"
-          className="inline-flex items-center gap-2 rounded-xl bg-church-700 px-3 py-2 text-xs font-bold text-white shadow-lg shadow-church-700/15 transition-all hover:-translate-y-0.5 hover:bg-church-800 sm:px-3.5"
+          aria-label="Nova Revista"
+          title="Nova Revista"
+          className="inline-flex min-h-11 min-w-11 items-center justify-center gap-2 rounded-xl bg-church-700 px-3 py-2 text-xs font-bold text-white shadow-lg shadow-church-700/15 transition-all hover:-translate-y-0.5 hover:bg-church-800 sm:px-3.5"
         >
           <PlusCircle className="w-3.5 h-3.5" />
-          <span>Nova Revista</span>
+          <span className="hidden sm:inline">Nova Revista</span>
         </Link>
 
         {userEmail && (

@@ -83,7 +83,7 @@ export default function LoginPage() {
         </div>
 
         {/* Card */}
-        <div className="rounded-3xl border border-white/80 bg-white/90 p-8 shadow-2xl shadow-slate-900/10 backdrop-blur-xl sm:p-10 dark:border-slate-800 dark:bg-slate-900/90">
+        <div className="rounded-3xl border border-white/80 bg-white/90 p-6 shadow-2xl shadow-slate-900/10 backdrop-blur-xl sm:p-10 dark:border-slate-800 dark:bg-slate-900/90">
           <div className="text-center mb-8">
             <div className="w-14 h-14 mx-auto mb-4 rounded-2xl bg-gradient-to-tr from-church-600 to-church-500 text-white flex items-center justify-center shadow-lg shadow-church-900/50">
               <BookOpen className="w-7 h-7" />

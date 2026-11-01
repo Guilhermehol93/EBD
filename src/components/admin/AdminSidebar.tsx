@@ -51,7 +51,7 @@ export function AdminSidebar() {
   ];
 
   return (
-    <aside className="relative z-20 flex w-full shrink-0 flex-col justify-between border-b border-slate-200 bg-white text-slate-600 lg:min-h-screen lg:w-[264px] lg:border-b-0 lg:border-r lg:border-slate-800 lg:bg-gradient-to-b lg:from-slate-950 lg:to-slate-900 lg:text-slate-300">
+    <aside className="relative z-20 flex w-full shrink-0 flex-col justify-between border-b border-slate-200 bg-white text-slate-600 lg:min-h-screen lg:w-[264px] lg:border-b-0 lg:border-r lg:border-taupe-800 lg:bg-gradient-to-b lg:from-taupe-950 lg:to-taupe-900 lg:text-slate-300">
       <div>
         {/* Brand */}
         <div className="border-b border-slate-100 p-4 lg:border-slate-800 lg:p-6">
@@ -61,13 +61,13 @@ export function AdminSidebar() {
             </div>
             <div>
               <h2 className="text-sm font-bold tracking-tight text-slate-900 lg:text-white">EBD Manager</h2>
-              <p className="text-[11px] text-slate-500 lg:text-slate-400">PIB Cataguases · Administração</p>
+              <p className="text-[11px] text-slate-500 lg:text-white/70">PIB Cataguases · Administração</p>
             </div>
           </div>
         </div>
 
         {/* Navigation links */}
-        <nav className="flex gap-1 overflow-x-auto p-2 lg:block lg:space-y-1.5 lg:p-4">
+        <nav className="grid grid-cols-2 gap-1.5 p-2 lg:block lg:space-y-1.5 lg:p-4">
           {links.map((link) => {
             const Icon = link.icon;
             const isActive =
@@ -79,13 +79,13 @@ export function AdminSidebar() {
               <Link
                 key={link.href}
                 href={link.href}
-                className={`flex shrink-0 items-center gap-2 rounded-xl px-3 py-2.5 text-xs font-semibold transition-all lg:w-full lg:gap-3 lg:px-3.5 lg:text-sm ${
+                className={`flex min-h-11 min-w-0 items-center gap-2 rounded-xl px-2.5 py-2.5 text-xs font-semibold leading-tight transition-all lg:w-full lg:gap-3 lg:px-3.5 lg:text-sm ${
                   isActive
                     ? "bg-church-700 text-white shadow-md shadow-church-900/20 lg:bg-church-600 lg:shadow-church-900/30"
-                    : "text-slate-500 hover:bg-slate-100 hover:text-slate-900 lg:text-slate-400 lg:hover:bg-slate-800/80 lg:hover:text-white"
+                    : "text-slate-500 hover:bg-slate-100 hover:text-slate-900 lg:text-white/70 lg:hover:bg-white/10 lg:hover:text-white"
                 }`}
               >
-                <Icon className={`w-4 h-4 ${isActive ? "text-white" : "text-slate-400"}`} />
+                <Icon className={`w-4 h-4 ${isActive ? "text-white" : "text-slate-400 lg:text-white/70"}`} />
                 <span>{link.label}</span>
               </Link>
             );
@@ -98,13 +98,13 @@ export function AdminSidebar() {
         <Link
           href="/"
           target="_blank"
-          className="hidden items-center justify-between rounded-xl px-3.5 py-2 text-xs font-medium text-slate-500 transition-colors hover:bg-slate-100 hover:text-slate-900 lg:flex lg:text-slate-400 lg:hover:bg-slate-800/60 lg:hover:text-white"
+          className="hidden items-center justify-between rounded-xl px-3.5 py-2 text-xs font-medium text-slate-500 transition-colors hover:bg-slate-100 hover:text-slate-900 lg:flex lg:text-white/70 lg:hover:bg-white/10 lg:hover:text-white"
         >
           <span className="flex items-center gap-2">
             <ExternalLink className="w-3.5 h-3.5" />
             <span>Ver Portal Público</span>
           </span>
-          <span className="text-[10px] bg-slate-800 px-1.5 py-0.5 rounded text-slate-400">Novo</span>
+          <span className="rounded bg-white/10 px-1.5 py-0.5 text-[10px] text-white/70">Novo</span>
         </Link>
 
         <form action="/api/auth/signout" method="POST">

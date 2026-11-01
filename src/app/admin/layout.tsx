@@ -17,7 +17,7 @@ export default async function AdminLayout({
   }
 
   return (
-    <div className="flex min-h-screen flex-col bg-[#f4f7fb] font-sans dark:bg-[#0b1220] lg:flex-row">
+    <div className="flex min-h-screen flex-col bg-taupe-50 font-sans dark:bg-taupe-950 lg:flex-row">
       <AdminSidebar />
       <div className="flex-1 flex flex-col min-w-0">
         <AdminHeader userEmail={user.email} />
