@@ -1,0 +1,310 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#102139">
+  <meta name="description" content="Manual de uso do EBD Revista Manager: portal dos alunos, painel administrativo, revistas, classes, agendamento e WhatsApp.">
+  <title>Manual da Aplicação · EBD Revista Manager</title>
+  <style>
+    :root{--navy:#102139;--navy2:#172e4e;--blue:#3378e8;--teal:#48c8b2;--gold:#efb84d;--ink:#18263a;--muted:#65748a;--line:#e3e9f1;--paper:#fff;--bg:#f3f6fa;--soft:#edf3fb;--green:#16886d;--shadow:0 18px 55px #152c4810}
+    *{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:90px}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.7 Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif}a{color:#2164c7;text-decoration:none}a:hover{text-decoration:underline}.top{height:68px;position:sticky;top:0;z-index:20;display:flex;align-items:center;justify-content:space-between;padding:0 max(calc((100vw - 1240px)/2),24px);background:#102139f2;color:white;border-bottom:1px solid #ffffff18;backdrop-filter:blur(14px)}.brand{display:flex;align-items:center;gap:11px;color:#fff;font-weight:800;letter-spacing:-.02em}.brand:hover{text-decoration:none}.brandmark{width:38px;height:38px;border-radius:13px;display:grid;place-items:center;background:linear-gradient(140deg,#3480ed,#45c8b3);box-shadow:0 8px 22px #0003}.top-actions{display:flex;align-items:center;gap:9px}.top-actions a,.top-actions button{font:inherit;font-size:12px;font-weight:700;color:#e5edf9;background:#ffffff0d;border:1px solid #ffffff24;border-radius:10px;padding:9px 12px;cursor:pointer}.top-actions a:hover,.top-actions button:hover{background:#ffffff1c;text-decoration:none}.progress{height:3px;position:fixed;top:68px;left:0;z-index:21;background:linear-gradient(90deg,var(--teal),#73a8ff);width:0}.hero{position:relative;overflow:hidden;color:#fff;background:radial-gradient(ellipse at 85% 12%,#427fe456,transparent 29%),radial-gradient(ellipse at 70% 90%,#32bba533,transparent 35%),linear-gradient(120deg,#102139,#173c5a 68%,#15535a);padding:75px 24px 64px}.hero:after{content:"";position:absolute;width:430px;height:430px;border:1px solid #ffffff15;border-radius:50%;right:8%;top:-210px;box-shadow:0 0 0 48px #ffffff08,0 0 0 98px #ffffff05}.hero-inner{max-width:1190px;margin:auto;position:relative;z-index:1;display:grid;grid-template-columns:1.1fr .9fr;gap:46px;align-items:center}.eyebrow{display:inline-flex;align-items:center;gap:8px;border:1px solid #b8fff044;border-radius:99px;padding:6px 12px;color:#aff3e4;text-transform:uppercase;letter-spacing:.12em;font-size:10px;font-weight:800}.eyebrow i{width:7px;height:7px;border-radius:50%;background:var(--teal);box-shadow:0 0 12px var(--teal)}h1{font-size:clamp(42px,6vw,72px);line-height:1.01;letter-spacing:-.065em;margin:20px 0 20px;max-width:700px}.hero p{font-size:17px;color:#cbd8e8;max-width:610px;margin:0}.hero-pills{display:flex;flex-wrap:wrap;gap:9px;margin-top:26px}.hero-pills span{padding:7px 11px;border:1px solid #ffffff20;background:#ffffff0d;border-radius:99px;color:#e3edf7;font-size:11px;font-weight:650}.hero-art{width:100%;max-width:510px;justify-self:end;filter:drop-shadow(0 24px 48px #08142280)}.page{max-width:1280px;margin:34px auto 90px;padding:0 22px;display:grid;grid-template-columns:255px minmax(0,1fr);gap:28px}.side{position:sticky;top:91px;align-self:start;max-height:calc(100vh - 108px);overflow:auto;background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:15px;box-shadow:var(--shadow)}.side-title{font-size:10px;letter-spacing:.13em;color:#91a0b4;text-transform:uppercase;font-weight:850;padding:8px 10px 10px}.side a{display:flex;gap:9px;align-items:center;padding:8px 10px;margin:2px 0;border-radius:9px;color:#53637a;font-size:12px;font-weight:680}.side a:hover{background:#edf4ff;color:#205db8;text-decoration:none}.side a span{font-size:13px;width:19px;text-align:center}.content{min-width:0}.intro{padding:4px 3px 18px}.intro h2{font-size:28px;margin:0;letter-spacing:-.04em}.intro p{color:var(--muted);margin:5px 0}.section{scroll-margin-top:92px;background:var(--paper);border:1px solid var(--line);border-radius:20px;padding:27px 30px;margin:0 0 17px;box-shadow:0 7px 28px #152c4808}.section h2{display:flex;align-items:center;gap:11px;font-size:23px;letter-spacing:-.035em;margin:0 0 9px}.section h3{font-size:16px;line-height:1.35;margin:23px 0 8px;letter-spacing:-.02em}.section p{margin:9px 0;color:#536278}.section ul,.section ol{padding-left:22px;margin:9px 0;color:#536278}.section li{padding:3px 0}.chapter{display:inline-grid;place-items:center;width:34px;height:34px;flex:none;border-radius:11px;background:#eaf2ff;color:#2765c5;font-size:15px}.callout{border:1px solid #d9e8ff;border-left:4px solid var(--blue);background:#f3f8ff;border-radius:12px;padding:13px 15px;margin:16px 0;color:#405774;font-size:13px}.callout.green{border-color:#caeee4;border-left-color:#28a889;background:#f0fbf7}.callout.gold{border-color:#f4e3bd;border-left-color:#e4a733;background:#fff9ed}.callout strong{color:var(--ink)}.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:15px 0}.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:15px 0}.tile{border:1px solid var(--line);border-radius:14px;background:#fbfcfe;padding:15px}.tile .icon{display:grid;place-items:center;width:34px;height:34px;border-radius:11px;background:#eaf2ff;color:#2868c6;font-size:16px}.tile h3{margin:10px 0 4px;font-size:14px}.tile p{margin:0;font-size:12px;color:var(--muted)}.step{display:grid;grid-template-columns:31px 1fr;gap:10px;margin:14px 0}.step b.num{display:grid;place-items:center;width:29px;height:29px;background:#eaf2ff;color:#2765c5;border-radius:10px;font-size:12px}.step h3{margin:1px 0 3px;font-size:14px}.step p{margin:0;font-size:13px}.figure{margin:18px 0 5px;background:linear-gradient(135deg,#f6f9fe,#eef5fb);border:1px solid #dfe8f2;border-radius:16px;padding:14px;overflow:hidden}.figure svg{display:block;width:100%;height:auto}.caption{text-align:center;color:#8190a4!important;font-size:11px!important;margin:8px 0 0!important}.table-wrap{overflow:auto;margin:14px 0}.tbl{width:100%;border-collapse:collapse;font-size:12px;min-width:540px}.tbl th{text-align:left;padding:10px 12px;background:#f2f6fb;color:#52647e;font-size:10px;letter-spacing:.08em;text-transform:uppercase}.tbl td{padding:11px 12px;border-bottom:1px solid #e9eef4;color:#536278;vertical-align:top}.tbl tr:last-child td{border-bottom:0}.badge{display:inline-block;padding:3px 8px;border-radius:99px;font-size:10px;font-weight:800}.b-green{background:#e7f7f1;color:#13795f}.b-blue{background:#eaf2ff;color:#2765c5}.b-amber{background:#fff4dc;color:#946512}.b-gray{background:#eff2f6;color:#617087}.code{font:12px/1.75 ui-monospace,SFMono-Regular,Consolas,monospace;background:#132238;color:#e6effb;border-radius:12px;padding:14px 16px;overflow:auto;white-space:pre}.inline{font: .88em ui-monospace,SFMono-Regular,Consolas,monospace;color:#354d6e;background:#eef2f7;border-radius:5px;padding:2px 5px}.flow{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin:17px 0}.flow-item{position:relative;border:1px solid var(--line);border-radius:13px;background:#fbfdff;padding:14px 10px;text-align:center}.flow-item:not(:last-child):after{content:"→";position:absolute;right:-11px;top:42%;z-index:2;color:#4f83d1;background:#f1f6fb;font-weight:900;padding:0 2px}.flow-item strong{display:block;font-size:12px;color:#263d5b}.flow-item small{font-size:10px;color:#7b8ca2}.faq details{border:1px solid var(--line);border-radius:12px;background:#fbfcfe;margin:8px 0;padding:12px 14px}.faq summary{cursor:pointer;font-weight:750;font-size:13px;color:#2c405a}.faq details p{font-size:12px;margin:7px 0 0}.end{background:#102139;color:#cbd8e8;border-radius:18px;padding:22px 25px;margin-top:18px}.end strong{color:white}.end a{color:#9fe8dc}.footer{background:#0b192b;color:#8fa0b8;text-align:center;padding:25px 20px;font-size:11px}.footer a{color:#a8d8ff}.mini{font-size:11px;color:#7b8ca2}.backtop{display:inline-block;margin-top:8px;font-size:12px;font-weight:750}.hide{display:none!important}
+    @media(max-width:980px){.hero-inner{grid-template-columns:1fr .75fr;gap:20px}.page{grid-template-columns:220px minmax(0,1fr);gap:17px}.section{padding:23px}.grid3{grid-template-columns:1fr 1fr}}
+    @media(max-width:760px){.top{padding:0 15px}.top-actions a{display:none}.hero{padding:58px 20px 46px}.hero-inner{grid-template-columns:1fr}.hero-art{max-width:390px;justify-self:center;margin-top:10px}.page{display:block;margin-top:20px;padding:0 13px}.side{position:relative;top:auto;max-height:none;margin-bottom:16px}.side nav{display:grid;grid-template-columns:1fr 1fr;gap:1px}.side-title{padding-top:4px}.grid2,.grid3{grid-template-columns:1fr}.flow{grid-template-columns:1fr 1fr}.flow-item:nth-child(2):after{display:none}.section{padding:20px 18px;border-radius:16px}.intro h2{font-size:24px}}
+    @media print{.top,.side,.progress,.top-actions,.backtop{display:none!important}.hero{padding:32px 0;background:#fff;color:#102139}.hero p,.hero-pills span{color:#526179}.hero-art{max-width:310px}.page{display:block;max-width:none;margin:0;padding:0}.section{break-inside:avoid;box-shadow:none;margin:10px 0}.figure{break-inside:avoid}.footer{background:#fff;color:#617087}.content{width:100%}a{color:inherit;text-decoration:none}}
+  </style>
+</head>
+<body>
+  <div class="progress" id="progress"></div>
+  <header class="top" id="topo">
+    <a class="brand" href="#topo" aria-label="EBD Revista Manager, início do manual">
+      <span class="brandmark" aria-hidden="true">📖</span><span>EBD Revista Manager <small style="font-weight:500;color:#aebed1">· Manual</small></span>
+    </a>
+    <div class="top-actions"><a href="./tutorial-instalacao.html">Guia de instalação</a><button onclick="window.print()" type="button">Imprimir / salvar PDF</button></div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-inner">
+      <div>
+        <span class="eyebrow"><i></i> Manual do usuário · versão web</span>
+        <h1>Todo o material da EBD, em um só lugar.</h1>
+        <p>Este manual explica, passo a passo e sem complicação, como alunos e administradores usam o portal, organizam revistas e classes e acompanham a comunicação pelo WhatsApp.</p>
+        <div class="hero-pills"><span>Para alunos e visitantes</span><span>Para equipe administrativa</span><span>Celular, tablet e computador</span></div>
+      </div>
+      <svg class="hero-art" viewBox="0 0 520 365" role="img" aria-label="Ilustração de um painel com revistas, agenda e conexão com WhatsApp">
+        <defs><linearGradient id="card" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#fff"/><stop offset="1" stop-color="#eaf2fb"/></linearGradient><linearGradient id="cover" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#113954"/><stop offset="1" stop-color="#257e91"/></linearGradient></defs>
+        <circle cx="400" cy="72" r="47" fill="#58d4bb" opacity=".15"/><circle cx="92" cy="276" r="54" fill="#f7c86e" opacity=".13"/>
+        <rect x="35" y="33" width="440" height="291" rx="22" fill="#071629" opacity=".54"/><rect x="45" y="22" width="430" height="291" rx="20" fill="url(#card)" stroke="#ffffff" stroke-width="2"/>
+        <rect x="45" y="22" width="430" height="42" rx="20" fill="#102139"/><path d="M45 47h430v17H45z" fill="#102139"/><circle cx="68" cy="43" r="4" fill="#ff8e86"/><circle cx="83" cy="43" r="4" fill="#ffd274"/><circle cx="98" cy="43" r="4" fill="#65d3ad"/><text x="121" y="47" fill="#dce8f6" font-size="11" font-family="Arial" font-weight="700">PAINEL DA EBD</text>
+        <rect x="64" y="81" width="175" height="16" rx="8" fill="#dce5ef"/><rect x="64" y="108" width="128" height="9" rx="4" fill="#e8edf4"/>
+        <rect x="64" y="143" width="116" height="123" rx="13" fill="url(#cover)"/><text x="83" y="174" fill="#c8e6df" font-size="8" font-family="Arial" letter-spacing="1.1">EBD · PIB</text><path d="M88 203h66" stroke="#ebbf63" stroke-width="2"/><text x="84" y="225" fill="#fff" font-size="12" font-family="Arial" font-weight="700">LIÇÃO 08</text><text x="84" y="244" fill="#daedf0" font-size="8" font-family="Arial">A revista da semana</text>
+        <rect x="197" y="143" width="104" height="55" rx="11" fill="#fff" stroke="#e0e7ef"/><circle cx="218" cy="165" r="9" fill="#e8f7f2"/><path d="M214 165l3 3 6-7" fill="none" stroke="#159273" stroke-width="2"/><text x="234" y="163" fill="#708198" font-size="7" font-family="Arial">REVISTAS</text><text x="234" y="179" fill="#1b3049" font-size="13" font-family="Arial" font-weight="700">12</text>
+        <rect x="313" y="143" width="137" height="55" rx="11" fill="#fff" stroke="#e0e7ef"/><circle cx="333" cy="165" r="9" fill="#fff4dc"/><path d="M333 159v6l4 2" fill="none" stroke="#b17b14" stroke-width="1.6"/><text x="349" y="163" fill="#708198" font-size="7" font-family="Arial">PRÓXIMA LIBERAÇÃO</text><text x="349" y="179" fill="#1b3049" font-size="10" font-family="Arial" font-weight="700">Dom · 08:00</text>
+        <rect x="197" y="210" width="253" height="56" rx="11" fill="#f0f8f6" stroke="#d9eee8"/><circle cx="222" cy="238" r="13" fill="#20ad84"/><path d="M216 234h12v8h-7l-4 3v-3h-1z" fill="#fff"/><text x="246" y="234" fill="#6d8192" font-size="8" font-family="Arial">WHATSAPP</text><text x="246" y="250" fill="#14775f" font-size="10" font-family="Arial" font-weight="700">Conectado ao grupo da EBD</text>
+        <rect x="64" y="280" width="386" height="9" rx="4" fill="#e6edf4"/><rect x="64" y="280" width="232" height="9" rx="4" fill="#4bbca8"/>
+        <circle cx="453" cy="297" r="25" fill="#54c9b2"/><path d="M442 297h22m-8-8 8 8-8 8" fill="none" stroke="#0d3a43" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+  </section>
+
+  <main class="page">
+    <aside class="side" aria-label="Índice do manual">
+      <div class="side-title">Neste manual</div>
+      <nav>
+        <a href="#visao"><span>✦</span>Visão geral</a>
+        <a href="#aluno"><span>⌂</span>Portal do aluno</a>
+        <a href="#admin"><span>▦</span>Painel administrativo</a>
+        <a href="#classes"><span>♧</span>Classes</a>
+        <a href="#revistas"><span>▤</span>Revistas</a>
+        <a href="#agendamento"><span>◷</span>Publicação e horário</a>
+        <a href="#whatsapp"><span>◉</span>WhatsApp</a>
+        <a href="#configuracoes"><span>⚙</span>Configurações</a>
+        <a href="#dados"><span>▧</span>Indicadores e registros</a>
+        <a href="#operacao"><span>⬡</span>Operação e manutenção</a>
+        <a href="#duvidas"><span>?</span>Dúvidas frequentes</a>
+      </nav>
+    </aside>
+
+    <div class="content">
+      <div class="intro"><h2>Comece por aqui</h2><p>Use o índice para ir direto à sua tarefa. O portal público é para alunos; as ferramentas administrativas exigem uma conta autorizada.</p></div>
+
+      <section class="section" id="visao">
+        <h2><span class="chapter">✦</span>O que é o EBD Revista Manager?</h2>
+        <p>É o portal digital da Escola Bíblica Dominical da Primeira Igreja Batista de Cataguases. Ele reúne as lições em PDF, organiza o material por classe e pode publicar os estudos em um horário programado. Quando o WhatsApp está conectado e habilitado para a revista, também envia uma mensagem ao grupo.</p>
+        <div class="grid3">
+          <article class="tile"><span class="icon">📖</span><h3>Portal público</h3><p>Alunos escolhem sua classe, leem a revista no navegador ou baixam o PDF.</p></article>
+          <article class="tile"><span class="icon">🛠️</span><h3>Painel administrativo</h3><p>A equipe cadastra classes, revistas, horários, conteúdo visual e dados da igreja.</p></article>
+          <article class="tile"><span class="icon">💬</span><h3>WhatsApp integrado</h3><p>O sistema testa a conexão, registra envios e pode avisar o grupo na publicação.</p></article>
+        </div>
+        <div class="figure">
+          <svg viewBox="0 0 900 205" role="img" aria-label="Fluxo do cadastro da revista até o acesso dos alunos e envio opcional pelo WhatsApp">
+            <defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0 0 8 4 0 8z" fill="#6c91c3"/></marker></defs>
+            <path d="M180 101h104M400 101h100M620 101h102" stroke="#8aa9ce" stroke-width="3" marker-end="url(#arrow)"/>
+            <g font-family="Arial" text-anchor="middle"><rect x="22" y="48" width="158" height="105" rx="17" fill="#fff" stroke="#d8e4f1"/><circle cx="101" cy="77" r="17" fill="#eaf2ff"/><text x="101" y="83" font-size="17">🛠</text><text x="101" y="116" fill="#203753" font-size="13" font-weight="700">Equipe cadastra</text><text x="101" y="135" fill="#7a8ba1" font-size="10">PDF + classe + horário</text>
+            <rect x="286" y="48" width="114" height="105" rx="17" fill="#fff" stroke="#d8e4f1"/><circle cx="343" cy="77" r="17" fill="#fff4dc"/><text x="343" y="83" font-size="17">◷</text><text x="343" y="116" fill="#203753" font-size="13" font-weight="700">Agendador</text><text x="343" y="135" fill="#7a8ba1" font-size="10">espera o horário</text>
+            <rect x="503" y="48" width="117" height="105" rx="17" fill="#fff" stroke="#d8e4f1"/><circle cx="561" cy="77" r="17" fill="#e6f7f1"/><text x="561" y="83" font-size="17">✓</text><text x="561" y="116" fill="#203753" font-size="13" font-weight="700">Portal libera</text><text x="561" y="135" fill="#7a8ba1" font-size="10">página para alunos</text>
+            <rect x="723" y="48" width="155" height="105" rx="17" fill="#fff" stroke="#d8e4f1"/><circle cx="800" cy="77" r="17" fill="#e6f7f1"/><text x="800" y="83" font-size="17">💬</text><text x="800" y="116" fill="#203753" font-size="13" font-weight="700">WhatsApp opcional</text><text x="800" y="135" fill="#7a8ba1" font-size="10">mensagem ao grupo</text></g>
+            <text x="450" y="188" fill="#7789a0" text-anchor="middle" font-family="Arial" font-size="11">As etapas dependem do horário, do agendador ativo e da conexão do provedor.</text>
+          </svg>
+          <p class="caption">Visão simplificada do fluxo de publicação.</p>
+        </div>
+      </section>
+
+      <section class="section" id="aluno">
+        <h2><span class="chapter">01</span>Portal do aluno e do visitante</h2>
+        <p>O conteúdo publicado é aberto ao público e não exige conta. O site funciona em celular, tablet e computador.</p>
+        <h3>Página inicial</h3>
+        <ul>
+          <li><strong>Banner:</strong> mostra o tema da EBD, lema, próxima aula, endereço e horários configurados pela equipe.</li>
+          <li><strong>Minha classe da EBD:</strong> escolha uma turma no seletor. A escolha fica salva naquele navegador para as próximas visitas; não é uma conta individual.</li>
+          <li><strong>Revista em destaque:</strong> apresenta o material mais recente publicado para a classe selecionada.</li>
+          <li><strong>Ler revista online:</strong> abre o leitor PDF dentro de uma janela. Há controles de páginas do próprio navegador, opção de tela cheia em telas compatíveis e botão para abrir em nova aba.</li>
+          <li><strong>Baixar PDF:</strong> salva o arquivo no dispositivo.</li>
+          <li><strong>Compartilhar:</strong> abre o menu de compartilhamento do dispositivo ou copia o endereço da página da revista.</li>
+          <li><strong>Modo claro/escuro:</strong> use o botão de lua/sol no topo para alternar o tema; a preferência fica salva naquele navegador.</li>
+          <li><strong>Revistas anteriores:</strong> pesquisa lições passadas por título, descrição, trimestre ou número.</li>
+        </ul>
+        <div class="grid2">
+          <article class="tile"><span class="icon">🏠</span><h3>Início · <code class="inline">/</code></h3><p>Banner, seletor de classe, revista em destaque, arquivo recente e informações da igreja.</p></article>
+          <article class="tile"><span class="icon">🗂️</span><h3>Arquivo · <code class="inline">/arquivo</code></h3><p>Lista de revistas publicadas da classe escolhida, com busca, leitura e download.</p></article>
+          <article class="tile"><span class="icon">🎓</span><h3>Minha classe · <code class="inline">/minha-classe</code></h3><p>Atalho para abrir os materiais da turma escolhida.</p></article>
+          <article class="tile"><span class="icon">📄</span><h3>Página da revista · <code class="inline">/revistas/ID</code></h3><p>Endereço individual que pode ser compartilhado. Mostra o leitor e as informações da lição.</p></article>
+        </div>
+        <div class="callout green"><strong>Dica:</strong> se a lista de revistas parecer vazia, confirme se a classe escolhida é a correta e se a equipe já publicou algum material para ela.</div>
+      </section>
+
+      <section class="section" id="admin">
+        <h2><span class="chapter">02</span>Entrar no painel administrativo</h2>
+        <div class="step"><b class="num">1</b><div><h3>Abra o acesso administrativo</h3><p>Acesse <code class="inline">/admin/login</code> a partir do endereço do portal.</p></div></div>
+        <div class="step"><b class="num">2</b><div><h3>Entre com sua conta</h3><p>Informe o e-mail e a senha cadastrados para a equipe. Somente usuários com permissão de administrador conseguem acessar as ferramentas.</p></div></div>
+        <div class="step"><b class="num">3</b><div><h3>Use o menu</h3><p>No computador o menu fica à esquerda. No celular, toque no botão de menu. Para sair, escolha <strong>Encerrar sessão</strong>.</p></div></div>
+        <div class="callout gold"><strong>Não tem acesso?</strong> Peça ao responsável pelo Supabase para cadastrar sua conta e atribuir a função de administrador. Não compartilhe a conta principal entre várias pessoas.</div>
+        <h3>O que existe no painel</h3>
+        <div class="table-wrap"><table class="tbl"><thead><tr><th>Menu</th><th>Para que serve</th></tr></thead><tbody>
+          <tr><td><strong>Painel Geral</strong></td><td>Resumo, próxima publicação, contagens e revistas recentes.</td></tr>
+          <tr><td><strong>Revistas da EBD</strong></td><td>Pesquisar, filtrar, editar, enviar agora ou excluir revistas.</td></tr>
+          <tr><td><strong>Classes</strong></td><td>Criar, organizar, editar e ativar ou desativar turmas.</td></tr>
+          <tr><td><strong>Nova Revista</strong></td><td>Enviar um PDF, preencher os dados e programar a publicação.</td></tr>
+          <tr><td><strong>Configurações &amp; Banner</strong></td><td>Personalizar informações públicas e integração do WhatsApp.</td></tr>
+          <tr><td><strong>Logs do WhatsApp</strong></td><td>Consultar envios, erros e executar uma verificação do agendador.</td></tr>
+        </tbody></table></div>
+      </section>
+
+      <section class="section" id="classes">
+        <h2><span class="chapter">03</span>Organizar classes da EBD</h2>
+        <p>As classes organizam quais revistas aparecem para cada grupo de alunos. Abra <strong>Classes</strong> no menu administrativo.</p>
+        <div class="step"><b class="num">1</b><div><h3>Cadastre uma classe</h3><p>Preencha o nome (por exemplo, Adultos, Jovens ou Crianças). A descrição é opcional e pode indicar faixa etária ou informações úteis. A ordem controla como as classes são listadas.</p></div></div>
+        <div class="step"><b class="num">2</b><div><h3>Salve e confira a lista</h3><p>Use <strong>Cadastrar classe</strong>. O nome fica disponível para associar a novas revistas.</p></div></div>
+        <div class="step"><b class="num">3</b><div><h3>Edite ou desative quando necessário</h3><p>Editar altera o nome, a descrição e a ordem. Desativar oculta a turma do portal público e da seleção de novas revistas; não apaga a turma nem as revistas já vinculadas. Ela pode ser ativada novamente.</p></div></div>
+        <div class="callout"><strong>Importante:</strong> uma revista nova só pode ser associada a uma classe ativa. No formulário de edição, uma classe inativa continua visível se já estiver ligada àquela revista, para preservar a associação atual.</div>
+      </section>
+
+      <section class="section" id="revistas">
+        <h2><span class="chapter">04</span>Cadastrar e administrar revistas</h2>
+        <h3>Criar uma revista</h3>
+        <div class="step"><b class="num">1</b><div><h3>Escolha o PDF</h3><p>Arraste o arquivo para a área de envio ou selecione-o no dispositivo. O arquivo deve ser um PDF válido de até <strong>25 MB</strong>.</p></div></div>
+        <div class="step"><b class="num">2</b><div><h3>Preencha os dados da lição</h3><p>Selecione uma classe ativa, informe o título, trimestre/edição, número da lição, data do domingo e, se desejar, uma descrição ou referência bíblica.</p></div></div>
+        <div class="step"><b class="num">3</b><div><h3>Confira o horário e o WhatsApp</h3><p>Defina quando a página ficará visível ao público. Escolha se o sistema também deverá enviar a mensagem automaticamente. A prévia mostra o texto e o link da página da revista.</p></div></div>
+        <div class="step"><b class="num">4</b><div><h3>Salve e confirme</h3><p>Use <strong>Salvar e Agendar Revista</strong>. Confira o resultado na lista e no Painel Geral.</p></div></div>
+        <div class="figure">
+          <svg viewBox="0 0 880 190" role="img" aria-label="Ilustração dos dados principais do formulário de nova revista">
+            <rect x="12" y="15" width="856" height="160" rx="18" fill="#fff" stroke="#dfe7f0"/><text x="38" y="47" fill="#203753" font-family="Arial" font-size="14" font-weight="700">NOVA REVISTA · DADOS ESSENCIAIS</text>
+            <g font-family="Arial"><rect x="38" y="65" width="185" height="75" rx="11" fill="#f4f8fd" stroke="#dfe7f0"/><text x="53" y="89" fill="#7e8da2" font-size="10">ARQUIVO</text><text x="53" y="113" fill="#2c4563" font-size="12" font-weight="700">📄 estudo-semanal.pdf</text><text x="53" y="129" fill="#8090a4" font-size="9">PDF · até 25 MB</text>
+            <rect x="238" y="65" width="185" height="75" rx="11" fill="#f4f8fd" stroke="#dfe7f0"/><text x="253" y="89" fill="#7e8da2" font-size="10">CLASSE E LIÇÃO</text><text x="253" y="111" fill="#2c4563" font-size="12" font-weight="700">Adultos · Lição 08</text><text x="253" y="129" fill="#8090a4" font-size="9">Tema + trimestre</text>
+            <rect x="438" y="65" width="185" height="75" rx="11" fill="#f4f8fd" stroke="#dfe7f0"/><text x="453" y="89" fill="#7e8da2" font-size="10">DATA DA AULA</text><text x="453" y="113" fill="#2c4563" font-size="12" font-weight="700">Domingo · 08/11</text><text x="453" y="129" fill="#8090a4" font-size="9">Data do estudo</text>
+            <rect x="638" y="65" width="204" height="75" rx="11" fill="#eff9f6" stroke="#cfe9e0"/><text x="653" y="89" fill="#4d8274" font-size="10">LIBERAÇÃO · BRASÍLIA</text><text x="653" y="113" fill="#13795f" font-size="12" font-weight="700">08/11 · 08:00</text><text x="653" y="129" fill="#6d9188" font-size="9">WhatsApp opcional</text></g>
+            <path d="M77 155h710" stroke="#c7d7e8" stroke-width="2"/><circle cx="77" cy="155" r="5" fill="#4382d6"/><circle cx="318" cy="155" r="5" fill="#4382d6"/><circle cx="530" cy="155" r="5" fill="#4382d6"/><circle cx="752" cy="155" r="5" fill="#25a889"/>
+          </svg><p class="caption">Os campos aparecem em etapas para facilitar a conferência antes de salvar.</p>
+        </div>
+        <h3>Localizar e gerenciar materiais</h3>
+        <ul>
+          <li>Em <strong>Revistas da EBD</strong>, pesquise pelo título, trimestre, nome da classe ou número da lição.</li>
+          <li>Use os filtros de status para ver todas, publicadas, agendadas ou arquivadas.</li>
+          <li><strong>Editar</strong> permite corrigir dados, classe, horário, status e opção de envio automático.</li>
+          <li><strong>Enviar no WhatsApp</strong> dispara uma mensagem imediatamente após confirmação. Use esse comando só quando quiser ignorar o horário programado.</li>
+          <li><strong>Excluir</strong> remove o registro e apaga permanentemente o PDF associado. Essa ação não pode ser desfeita.</li>
+        </ul>
+      </section>
+
+      <section class="section" id="agendamento">
+        <h2><span class="chapter">05</span>Publicação e horário programado</h2>
+        <p>A data da aula indica a qual domingo o material pertence. A data e hora de liberação controlam quando o portal e os alunos poderão acessá-lo.</p>
+        <div class="flow">
+          <div class="flow-item"><strong>Antes do horário</strong><small>Revista agendada<br>não aparece ao público</small></div>
+          <div class="flow-item"><strong>Chega o horário</strong><small>Agendador verifica<br>uma vez por minuto</small></div>
+          <div class="flow-item"><strong>Publicação</strong><small>Página da revista<br>fica disponível</small></div>
+          <div class="flow-item"><strong>WhatsApp</strong><small>Envia se a opção<br>estiver ativa</small></div>
+        </div>
+        <ul>
+          <li>O campo de liberação usa o horário de Brasília (Cataguases).</li>
+          <li>O serviço automático verifica os agendamentos a cada minuto; por isso, a publicação pode acontecer até aproximadamente um minuto depois do horário escolhido.</li>
+          <li>Se o horário informado já passou ao salvar, o sistema considera a revista pronta para publicação e, se o disparo estiver ligado, tenta enviar a mensagem imediatamente.</li>
+          <li>Desmarcar o disparo automático impede o envio na publicação, mas não impede que a revista apareça no portal.</li>
+          <li>O botão de envio manual da lista ignora o horário e envia agora.</li>
+        </ul>
+        <div class="callout gold"><strong>Recomendação:</strong> confira a data, o horário de Brasília e a prévia antes de salvar. Para corrigir um agendamento antigo, abra <strong>Editar</strong>, informe novamente a hora local desejada e salve.</div>
+      </section>
+
+      <section class="section" id="whatsapp">
+        <h2><span class="chapter">06</span>WhatsApp: configurar, testar e acompanhar</h2>
+        <p>A integração mais comum usa a Evolution API instalada na mesma stack Docker. O número da igreja precisa ser pareado com o QR Code e permanecer conectado.</p>
+        <h3>Configuração na tela administrativa</h3>
+        <ul>
+          <li><strong>Provedor:</strong> Evolution API ou Webhook HTTP genérico.</li>
+          <li><strong>Nome da instância:</strong> nome criado no Evolution Manager (por exemplo, <code class="inline">pib-cataguases-ebd</code>).</li>
+          <li><strong>Destino:</strong> JID do grupo terminado em <code class="inline">@g.us</code> ou telefone de teste com código do país e DDD.</li>
+          <li><strong>Testar conexão:</strong> consulta o estado da instância e tenta enviar uma mensagem de teste ao destino preenchido.</li>
+          <li>URL e chave de API são credenciais do servidor, configuradas como variáveis da stack no Portainer; não são exibidas no painel.</li>
+        </ul>
+        <h3>Modelo da mensagem</h3>
+        <p>O modelo global fica em <strong>Configurações &amp; Banner</strong>. Ele aceita as variáveis abaixo e formatação do WhatsApp:</p>
+        <div class="table-wrap"><table class="tbl"><thead><tr><th>Variável</th><th>Conteúdo inserido</th></tr></thead><tbody>
+          <tr><td><code class="inline">{titulo}</code></td><td>Título da revista.</td></tr>
+          <tr><td><code class="inline">{data}</code></td><td>Data da aula.</td></tr>
+          <tr><td><code class="inline">{link}</code></td><td>Endereço da página da revista no portal do aluno.</td></tr>
+          <tr><td><code class="inline">{numero}</code></td><td>Número da lição formatado.</td></tr>
+          <tr><td><code class="inline">{trimestre}</code></td><td>Trimestre ou edição informada.</td></tr>
+        </tbody></table></div>
+        <div class="code">*texto em negrito*
+_texto em itálico_
+
+Exemplo: 📖 *{titulo}*
+👉 Acesse a página da revista:
+{link}</div>
+        <p>Quebras de linha são respeitadas. Se o texto estiver sem destaque, revise os asteriscos e sublinhados no modelo salvo e clique em <strong>Salvar Todas as Configurações</strong>.</p>
+        <h3>Ativar para uma revista</h3>
+        <p>No formulário de nova revista, mantenha <strong>Disparo Agendado Ativo</strong> ligado para enviar a mensagem quando o material for publicado. A página da revista é o link compartilhado; o PDF fica disponível dentro dela para leitura ou download.</p>
+        <div class="callout green"><strong>Conectado não é o mesmo que mensagem enviada.</strong> O estado da instância confirma o vínculo com o WhatsApp. Consulte os logs para verificar o resultado do envio ao grupo.</div>
+        <div class="figure">
+          <svg viewBox="0 0 800 180" role="img" aria-label="Exemplo de mensagem de WhatsApp com título, texto e link de acesso à página da revista">
+            <rect x="190" y="9" width="420" height="162" rx="23" fill="#dcefe6"/><path d="m235 156-18 15 5-23" fill="#dcefe6"/><rect x="211" y="24" width="378" height="125" rx="15" fill="#fff"/>
+            <text x="233" y="51" fill="#1c3b31" font-family="Arial" font-size="13" font-weight="700">📖 Escola Bíblica Dominical</text><text x="233" y="76" fill="#40584e" font-family="Arial" font-size="11">A Paz do Senhor! Confira o estudo desta semana.</text><text x="233" y="101" fill="#1c3b31" font-family="Arial" font-size="11" font-weight="700">Lição 08 · O tema da revista</text><text x="233" y="126" fill="#2875bc" font-family="Arial" font-size="11">https://portal.exemplo/revistas/...</text><text x="546" y="140" fill="#9aa9a1" font-family="Arial" font-size="8">08:00 ✓✓</text>
+          </svg><p class="caption">Exemplo ilustrativo. O conteúdo final depende do modelo configurado pelo administrador.</p>
+        </div>
+      </section>
+
+      <section class="section" id="configuracoes">
+        <h2><span class="chapter">07</span>Configurações do portal e da igreja</h2>
+        <p>As alterações ficam em <strong>Configurações &amp; Banner</strong>. Depois de alterar os campos, use <strong>Salvar Todas as Configurações</strong>. O envio de uma imagem de banner é uma ação separada na própria seção.</p>
+        <div class="grid2">
+          <article class="tile"><span class="icon">🖼️</span><h3>Banner público</h3><p>Título, subtítulo/lema e imagem de fundo do portal.</p></article>
+          <article class="tile"><span class="icon">⛪</span><h3>Identidade e endereço</h3><p>Nome da igreja, endereço e horários de reunião.</p></article>
+          <article class="tile"><span class="icon">🔗</span><h3>Links públicos</h3><p>Instagram, YouTube, Facebook, convite para o grupo do WhatsApp e site oficial.</p></article>
+          <article class="tile"><span class="icon">💬</span><h3>Integração WhatsApp</h3><p>Provedor, instância, destinatário de teste e modelo padrão da mensagem.</p></article>
+        </div>
+        <div class="callout"><strong>Imagem do banner:</strong> selecione um arquivo de imagem pelo botão da tela. Os PDFs e banners são guardados no armazenamento local persistente da aplicação.</div>
+      </section>
+
+      <section class="section" id="dados">
+        <h2><span class="chapter">08</span>Painel, métricas e logs</h2>
+        <h3>Painel Geral</h3>
+        <ul>
+          <li><strong>Total de revistas:</strong> quantidade cadastrada, com contagens de publicadas e agendadas.</li>
+          <li><strong>Publicadas:</strong> quantidade com status publicado.</li>
+          <li><strong>Leituras e downloads:</strong> soma das visualizações e downloads registrados.</li>
+          <li><strong>WhatsApp enviados:</strong> revistas marcadas como enviadas com sucesso.</li>
+          <li><strong>Próxima liberação:</strong> próximo material ainda agendado, com atalho para editar.</li>
+        </ul>
+        <h3>Logs do WhatsApp &amp; Agendamento</h3>
+        <p>A tela mostra até os 50 registros mais recentes, incluindo sucesso ou falha, data/hora, destinatário, revista ou teste manual e mensagem/erro. Abra <strong>Ver detalhes</strong> para consultar a resposta completa do provedor.</p>
+        <p><strong>Forçar Verificação de Agendados Agora</strong> executa uma checagem naquele momento. Ela processa apenas revistas que já chegaram ao horário de publicação; não antecipa os próximos agendamentos. O serviço interno também faz a verificação automática a cada minuto.</p>
+      </section>
+
+      <section class="section" id="operacao">
+        <h2><span class="chapter">09</span>Como a aplicação funciona e cuidados de operação</h2>
+        <div class="figure">
+          <svg viewBox="0 0 900 270" role="img" aria-label="Diagrama da aplicação: visitante, app Docker, Supabase, arquivos persistentes e Evolution API">
+            <defs><marker id="arr2" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0 0 8 4 0 8z" fill="#8aa7ca"/></marker></defs>
+            <rect x="24" y="82" width="150" height="95" rx="17" fill="#fff" stroke="#dae5f0"/><text x="99" y="116" text-anchor="middle" font-size="25">👥</text><text x="99" y="141" text-anchor="middle" font-family="Arial" font-size="12" font-weight="700" fill="#27415f">Alunos e equipe</text><text x="99" y="158" text-anchor="middle" font-family="Arial" font-size="9" fill="#8291a5">navegador web</text>
+            <path d="M175 130h59" stroke="#8aa7ca" stroke-width="2.5" marker-end="url(#arr2)"/>
+            <rect x="240" y="37" width="365" height="193" rx="20" fill="#eaf2fc" stroke="#cdddf0"/><text x="422" y="64" text-anchor="middle" font-family="Arial" font-size="12" font-weight="700" fill="#27415f">SERVIDOR DO PORTAL · DOCKER</text>
+            <rect x="264" y="82" width="145" height="69" rx="12" fill="#fff" stroke="#dae5f0"/><text x="336" y="109" text-anchor="middle" font-size="19">🌐</text><text x="336" y="132" text-anchor="middle" font-family="Arial" font-size="10" font-weight="700" fill="#27415f">Next.js · portal/admin</text>
+            <rect x="430" y="82" width="151" height="69" rx="12" fill="#fff" stroke="#dae5f0"/><text x="505" y="109" text-anchor="middle" font-size="19">📁</text><text x="505" y="132" text-anchor="middle" font-family="Arial" font-size="10" font-weight="700" fill="#27415f">Volume · PDFs e imagens</text>
+            <rect x="264" y="166" width="317" height="42" rx="10" fill="#fff" stroke="#dae5f0"/><text x="422" y="192" text-anchor="middle" font-family="Arial" font-size="10" fill="#526b88">Agendador interno · verifica publicações de minuto em minuto</text>
+            <path d="M605 112h62" stroke="#8aa7ca" stroke-width="2.5" marker-end="url(#arr2)"/><path d="M605 174h62" stroke="#8aa7ca" stroke-width="2.5" marker-end="url(#arr2)"/>
+            <rect x="674" y="48" width="202" height="81" rx="15" fill="#fff" stroke="#dae5f0"/><text x="775" y="77" text-anchor="middle" font-size="21">🗄️</text><text x="775" y="99" text-anchor="middle" font-family="Arial" font-size="11" font-weight="700" fill="#27415f">Supabase</text><text x="775" y="115" text-anchor="middle" font-family="Arial" font-size="9" fill="#8291a5">login e banco de dados</text>
+            <rect x="674" y="148" width="202" height="81" rx="15" fill="#fff" stroke="#cde8dd"/><text x="775" y="177" text-anchor="middle" font-size="21">💬</text><text x="775" y="199" text-anchor="middle" font-family="Arial" font-size="11" font-weight="700" fill="#14795f">Evolution API</text><text x="775" y="215" text-anchor="middle" font-family="Arial" font-size="9" fill="#82958b">envio opcional pelo WhatsApp</text>
+          </svg><p class="caption">Arquitetura em alto nível. O volume nomeado preserva os arquivos enviados entre atualizações do container.</p>
+        </div>
+        <h3>Componentes e dados</h3>
+        <ul>
+          <li><strong>Portal e painel:</strong> aplicação web Next.js servida pelo container <code class="inline">ebd-app</code>.</li>
+          <li><strong>Supabase:</strong> autenticação administrativa e banco com revistas, classes, configurações e registros do WhatsApp.</li>
+          <li><strong>Arquivos:</strong> PDFs e imagens ficam no volume Docker persistente <code class="inline">ebd_uploads</code>.</li>
+          <li><strong>WhatsApp:</strong> opcional; a stack inclui Evolution API, banco PostgreSQL próprio e volumes persistentes.</li>
+        </ul>
+        <h3>Atualizações e cópias de segurança</h3>
+        <ul>
+          <li>Antes de atualizar ou remover a stack, faça backup do volume <code class="inline">ebd_uploads</code>; ele guarda os arquivos do portal.</li>
+          <li>Se usa Evolution, preserve também os volumes da instância, do banco Evolution e do armazenamento Evolution para manter pareamento e dados.</li>
+          <li>Atualização por Portainer: busque a versão nova do repositório e use <strong>Pull and redeploy</strong>.</li>
+          <li>Depois de mudar variáveis da stack, recrie/reimplante os serviços para que os novos valores sejam carregados.</li>
+        </ul>
+        <h3>Instalação e publicação</h3>
+        <p>A aplicação pode ser executada em Umbrel ou em servidor com Docker Compose. A configuração inicial requer projeto Supabase, usuário administrador e variáveis de ambiente. O tutorial separado traz o passo a passo de instalação, configuração do banco, Portainer e pareamento pelo QR Code.</p>
+        <div class="grid2"><a class="tile" href="./tutorial-instalacao.html"><span class="icon">🧭</span><h3>Guia visual de instalação</h3><p>Passos para instalar e colocar a stack em funcionamento.</p></a><a class="tile" href="../README.md"><span class="icon">📚</span><h3>Documentação técnica do projeto</h3><p>Arquitetura, arquivos SQL, variáveis e detalhes para manutenção.</p></a></div>
+        <div class="callout gold"><strong>Segredos:</strong> mantenha chaves e senhas no Portainer ou em local seguro. Nunca publique <code class="inline">SUPABASE_SERVICE_ROLE_KEY</code>, <code class="inline">WHATSAPP_API_KEY</code> ou senhas do banco em mensagens, capturas públicas ou no Git.</div>
+      </section>
+
+      <section class="section faq" id="duvidas">
+        <h2><span class="chapter">10</span>Dúvidas frequentes</h2>
+        <details><summary>Uma revista agendada aparece antes da hora?</summary><p>Confirme a hora de Brasília no campo de liberação. A equipe deve editar e salvar novamente agendamentos que foram criados antes da correção do fuso horário. O cron não publica materiais futuros; ele verifica os que já venceram a cada minuto.</p></details>
+        <details><summary>O WhatsApp aparece conectado, mas o teste falha?</summary><p>“Conectado” confirma o estado da instância, mas não garante que o envio ao destino funcionou. Confira o JID, a chave, o nome da instância, os logs da Evolution e os detalhes em Logs do WhatsApp.</p></details>
+        <details><summary>A mensagem saiu antes do horário ou não saiu?</summary><p>Verifique o horário programado e se o disparo estava ativo. No histórico, confira o momento do envio e a mensagem de erro. O botão de envio manual dispara imediatamente e ignora o agendamento.</p></details>
+        <details><summary>A classe desativada continua no portal?</summary><p>As classes inativas são ocultadas dos alunos e não podem ser escolhidas para uma nova revista. Uma revista antiga pode continuar vinculada a ela; desativar não apaga materiais.</p></details>
+        <details><summary>O PDF foi enviado, mas não aparece?</summary><p>Confirme que o horário de liberação já chegou e que a revista está vinculada à classe escolhida no portal. A página pública pode levar até cerca de um minuto para atualizar.</p></details>
+        <details><summary>O link do WhatsApp abre uma página de login do Tailscale?</summary><p>Configure <code class="inline">NEXT_PUBLIC_APP_URL</code> com o endereço público real do portal, como a URL HTTPS <code class="inline">*.ts.net</code> do Funnel, sem usar a página de login do Tailscale. Depois, faça redeploy para aplicar.</p></details>
+        <details><summary>Não consigo acessar o painel administrativo.</summary><p>Confirme que está usando <code class="inline">/admin/login</code>, que o usuário existe no Supabase Auth e recebeu a função administrativa em <code class="inline">app_metadata</code>.</p></details>
+        <details><summary>Como pedir ajuda com um erro?</summary><p>Anote a tela e a ação realizada, o horário aproximado, a revista envolvida e a mensagem exibida. Para falhas do WhatsApp, inclua os detalhes do registro em Logs e os logs relevantes da Evolution, sem compartilhar chaves ou senhas.</p></details>
+      </section>
+
+      <div class="end"><strong>Um bom fluxo de trabalho:</strong> mantenha as classes atualizadas, confira o PDF e os dados, confirme o horário de Brasília, revise a prévia e só então salve o agendamento. <a class="backtop" href="#topo">Voltar ao início ↑</a></div>
+    </div>
+  </main>
+  <footer class="footer">EBD Revista Manager · PIB Cataguases · Manual em linguagem simples · <a href="./tutorial-instalacao.html">Guia de instalação</a> · <a href="../README.md">README técnico</a></footer>
+  <script>
+    const progress=document.getElementById('progress');
+    addEventListener('scroll',()=>{const max=document.documentElement.scrollHeight-innerHeight;progress.style.width=(max?scrollY/max*100:0)+'%'},{passive:true});
+  </script>
+</body>
+</html>

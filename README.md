@@ -15,7 +15,7 @@
   Software web <strong>100% self-hosted e com custo zero</strong> para automatizar a publicação e o envio no WhatsApp das revistas e lições semanais da Escola Bíblica Dominical da PIB Cataguases.
 </p>
 
-[Documentação Interativa (HTML)](./docs/index.html) • [Guia de Instalação no Umbrel via Portainer](#-guia-de-instalação-no-umbrel-os-via-portainer) • [Configuração do WhatsApp](#-automação-do-whatsapp)
+[Manual completo da aplicação (HTML)](./docs/manual.html) • [Guia de instalação no Umbrel via Portainer](./docs/tutorial-instalacao.html) • [Configuração do WhatsApp](#-automação-do-whatsapp)
 
 **[Abrir tutorial visual de instalação e implementação](./docs/tutorial-instalacao.html)**
 
