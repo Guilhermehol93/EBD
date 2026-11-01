@@ -142,7 +142,7 @@ export function buildMagazineWhatsAppMessage(
       '📌 *{titulo}*\n' +
       '📅 *Data:* {data}\n' +
       '📖 *Lição:* {numero} | {trimestre}\n\n' +
-      '👉 Acesse agora para ler online ou baixar o PDF:\n{link}\n\n' +
+      '👉 Acesse a página da revista:\n{link}\n\n' +
       '_"Lâmpada para os meus pés é tua palavra, e luz para o meu caminho." (Sl 119:105)_';
 
   const formattedDate = formatDatePtBR(magazine.lesson_date);

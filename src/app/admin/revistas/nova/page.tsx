@@ -107,7 +107,7 @@ export default function NovaRevistaPage() {
     `📌 *${title || "Título da Lição"}*\n` +
     `📅 *Data:* ${lessonDate ? lessonDate.split("-").reverse().join("/") : "DD/MM/AAAA"}\n` +
     `📖 *Lição:* ${lessonNumber ? String(lessonNumber).padStart(2, "0") : "01"} | ${editionQuarter}\n\n` +
-    `👉 Acesse agora para ler online ou baixar o PDF:\n${previewDirectLink}\n\n` +
+    `👉 Acesse a página da revista:\n${previewDirectLink}\n\n` +
     `_"Lâmpada para os meus pés é tua palavra, e luz para o meu caminho." (Sl 119:105)_`
   );
 
