@@ -164,6 +164,7 @@ Depois da implantação, acesse `http://umbrel.local:3001` (ou o endereço/IP do
 | `WHATSAPP_API_URL` | URL interna do container Evolution API | `http://evolution-api:8080` |
 | `WHATSAPP_HOST_PORT` | Porta local do Umbrel para configurar a Evolution API | `8081` |
 | `WHATSAPP_API_KEY` | Chave forte compartilhada com a Evolution API | Gerar com `openssl rand -hex 32` |
+| `EVOLUTION_DB_PASSWORD` | Senha do PostgreSQL interno usado pela Evolution API | Gerar uma chave diferente com `openssl rand -hex 32` |
 | `WHATSAPP_INSTANCE` | Nome da instância do WhatsApp | `pib-cataguases-ebd` |
 | `WHATSAPP_GROUP_JID` | ID do grupo da EBD no WhatsApp | `120363028372648291@g.us` |
 

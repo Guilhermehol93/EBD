@@ -39,7 +39,8 @@ services:
       # Armazenamento persistente local dos arquivos PDF das revistas e banners
       - ./data/uploads:/app/data/uploads
     depends_on:
-      - evolution-api
+      evolution-api:
+        condition: service_started
     networks:
       - ebd-network
 
@@ -59,10 +60,35 @@ services:
       - CONFIG_SESSION_PHONE_CLIENT=EBD Manager PIB Cataguases
       - CONFIG_SESSION_PHONE_NAME=Chrome
       - LOG_LEVEL=ERROR,WARN,INFO
+      - DATABASE_ENABLED=true
+      - DATABASE_PROVIDER=postgresql
+      - DATABASE_CONNECTION_URI=postgresql://evolution:${EVOLUTION_DB_PASSWORD:?Configure EVOLUTION_DB_PASSWORD no Portainer}@evolution-db:5432/evolution
+      - DATABASE_CONNECTION_CLIENT_NAME=ebd-evolution
       - DATABASE_SAVE_DATA_INSTANCE=true
+    depends_on:
+      evolution-db:
+        condition: service_healthy
     volumes:
       - evolution_instances:/evolution/instances
       - evolution_store:/evolution/store
+    networks:
+      - ebd-network
+
+  evolution-db:
+    image: postgres:15-alpine
+    container_name: ebd-evolution-db
+    restart: unless-stopped
+    environment:
+      - POSTGRES_DB=evolution
+      - POSTGRES_USER=evolution
+      - POSTGRES_PASSWORD=${EVOLUTION_DB_PASSWORD:?Configure EVOLUTION_DB_PASSWORD no Portainer}
+    volumes:
+      - evolution_postgres:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U evolution -d evolution"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
     networks:
       - ebd-network
 
@@ -73,6 +99,8 @@ volumes:
   evolution_instances:
     driver: local
   evolution_store:
+    driver: local
+  evolution_postgres:
     driver: local
 
 # ------------------------------------------------------------------------------
