@@ -2,9 +2,9 @@ import { MapPin, Clock, MessageSquare, Globe, ExternalLink } from "lucide-react"
 import { ChurchSettings } from "@/lib/types";
 function SocialIcon({ name }: { name: "instagram" | "youtube" | "facebook" }) {
   const common = { className: "w-4 h-4 shrink-0", viewBox: "0 0 24 24", fill: "currentColor", "aria-hidden": true as const };
-  if (name === "instagram") return <svg {...common}><path d="M7.8 2h8.4A5.8 5.8 0 0 1 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8A5.8 5.8 0 0 1 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2Zm0 2A3.8 3.8 0 0 0 4 7.8v8.4A3.8 3.8 0 0 0 7.8 20h8.4a3.8 3.8 0 0 0 3.8-3.8V7.8A3.8 3.8 0 0 0 16.2 4H7.8Zm4.2 3a5 5 0 1 1 0 10 5 5 0 0 1 0-10Zm0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6Zm5.2-3.5a1.3 1.3 0 1 1 0 2.6 1.3 1.3 0 0 1 0-2.6Z" /></svg>;
-  if (name === "youtube") return <svg {...common}><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8ZM9.6 15.6V8.4l6.3 3.6-6.3 3.6Z" /></svg>;
-  return <svg {...common}><path d="M24 12.1C24 5.4 18.6 0 12 0S0 5.4 0 12.1c0 6 4.4 11 10.1 11.9v-8.4H7.1v-3.5h3V9.4c0-3 1.8-4.7 4.5-4.7 1.3 0 2.6.2 2.6.2v2.9h-1.5c-1.5 0-2 .9-2 1.9v2.3h3.4l-.5 3.5h-2.9V24C19.6 23.1 24 18.1 24 12.1Z" /></svg>;
+  if (name === "instagram") return <svg {...common} className="w-4 h-4 shrink-0 text-[#E4405F]"><path d="M7.8 2h8.4A5.8 5.8 0 0 1 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8A5.8 5.8 0 0 1 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2Zm0 2A3.8 3.8 0 0 0 4 7.8v8.4A3.8 3.8 0 0 0 7.8 20h8.4a3.8 3.8 0 0 0 3.8-3.8V7.8A3.8 3.8 0 0 0 16.2 4H7.8Zm4.2 3a5 5 0 1 1 0 10 5 5 0 0 1 0-10Zm0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6Zm5.2-3.5a1.3 1.3 0 1 1 0 2.6 1.3 1.3 0 0 1 0-2.6Z" /></svg>;
+  if (name === "youtube") return <svg {...common} className="w-4 h-4 shrink-0 text-[#FF0000]"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8ZM9.6 15.6V8.4l6.3 3.6-6.3 3.6Z" /></svg>;
+  return <svg {...common} className="w-4 h-4 shrink-0 text-[#1877F2]"><path d="M24 12.1C24 5.4 18.6 0 12 0S0 5.4 0 12.1c0 6 4.4 11 10.1 11.9v-8.4H7.1v-3.5h3V9.4c0-3 1.8-4.7 4.5-4.7 1.3 0 2.6.2 2.6.2v2.9h-1.5c-1.5 0-2 .9-2 1.9v2.3h3.4l-.5 3.5h-2.9V24C19.6 23.1 24 18.1 24 12.1Z" /></svg>;
 }
 
 interface ChurchInfoSectionProps {
@@ -91,7 +91,8 @@ export function ChurchInfoSection({ settings }: ChurchInfoSectionProps) {
                   rel="noopener noreferrer"
                   className="flex items-center gap-2 p-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-xs font-semibold text-slate-200 transition-colors"
                 >
-                  <SocialIcon name="instagram" />`r`n                  <span>Instagram</span>
+                  <SocialIcon name="instagram" />
+                  <span>Instagram</span>
                 </a>
               )}
               {youtube && (
@@ -101,7 +102,8 @@ export function ChurchInfoSection({ settings }: ChurchInfoSectionProps) {
                   rel="noopener noreferrer"
                   className="flex items-center gap-2 p-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-xs font-semibold text-slate-200 transition-colors"
                 >
-                  <SocialIcon name="youtube" />`r`n                  <span>YouTube</span>
+                  <SocialIcon name="youtube" />
+                  <span>YouTube</span>
                 </a>
               )}
               {facebook && (
@@ -111,7 +113,8 @@ export function ChurchInfoSection({ settings }: ChurchInfoSectionProps) {
                   rel="noopener noreferrer"
                   className="flex items-center gap-2 p-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-xs font-semibold text-slate-200 transition-colors"
                 >
-                  <SocialIcon name="facebook" />`r`n                  <span>Facebook</span>
+                  <SocialIcon name="facebook" />
+                  <span>Facebook</span>
                 </a>
               )}
               {website && (
