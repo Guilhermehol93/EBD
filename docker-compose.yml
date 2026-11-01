@@ -47,7 +47,7 @@ services:
   # 2. Evolution API v2 (API de WhatsApp Self-Hosted e Gratuita - Baileys)
   # ----------------------------------------------------------------------------
   evolution-api:
-    image: atendai/evolution-api:v2.1.2
+    image: evoapicloud/evolution-api:v2.1.2
     container_name: ebd-whatsapp-evolution
     restart: unless-stopped
     ports:
