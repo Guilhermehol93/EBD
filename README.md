@@ -133,6 +133,17 @@ Consulte o [tutorial visual completo de implantação via Portainer](./docs/tuto
 
 Depois da implantação, acesse `http://umbrel.local:3001` (ou o endereço/IP do Umbrel) e entre no painel em `/admin/login`.
 
+### Acesso externo gratuito com Tailscale Funnel
+
+O Umbrel já pode ser acessado remotamente pela VPN do Tailscale. Para permitir que alunos abram o portal sem instalar Tailscale e sem comprar um domínio, habilite o **Funnel** no mesmo dispositivo. Ele publica somente a porta da aplicação em uma URL HTTPS `*.ts.net`; qualquer pessoa com o link poderá abrir o portal público. O painel administrativo continua exigindo autenticação Supabase.
+
+1. No Umbrel, abra **Settings → Advanced settings → Terminal**, selecione **App → Tailscale** e conecte-se ao terminal do app.
+2. Execute `tailscale funnel --bg 3001`. A porta deve corresponder a `APP_HOST_PORT` da Stack (padrão `3001`). Se o Tailscale solicitar, aprove a ativação do Funnel no tailnet.
+3. Copie a URL `https://…ts.net` exibida. Ela é o endereço externo do portal; o Tailscale mantém o encaminhamento ativo após reinicializações.
+4. No Portainer, defina `NEXT_PUBLIC_APP_URL` com essa URL, sem barra no final, e faça **Pull and redeploy** para que links compartilhados pelo WhatsApp apontem para o endereço público.
+
+Para conferir o estado, execute `tailscale funnel status`. Para retirar o site da internet, execute `tailscale funnel reset`. O Funnel é gratuito e disponível em todos os planos Tailscale, mas torna o portal público: compartilhe apenas o endereço do site e mantenha credenciais administrativas fortes. Consulte a [documentação oficial do Tailscale Funnel](https://tailscale.com/docs/features/tailscale-funnel) para os requisitos e limites atuais.
+
 ---
 
 ## 🗄️ Configuração do Banco de Dados (Supabase)
