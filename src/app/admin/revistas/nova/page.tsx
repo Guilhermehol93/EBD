@@ -15,7 +15,7 @@ import {
   Eye,
   Info,
 } from "lucide-react";
-import { formatFileSize, getNextSunday } from "@/lib/utils";
+import { formatFileSize, getNextSunday, saoPauloDateTimeLocalToISOString } from "@/lib/utils";
 import { EbdClass } from "@/lib/types";
 
 export default function NovaRevistaPage() {
@@ -134,7 +134,7 @@ export default function NovaRevistaPage() {
       formData.append("edition_quarter", editionQuarter);
       formData.append("lesson_number", String(lessonNumber));
       formData.append("lesson_date", lessonDate);
-      formData.append("publish_at", publishAt);
+      formData.append("publish_at", saoPauloDateTimeLocalToISOString(publishAt));
       formData.append("whatsapp_scheduled", String(whatsappScheduled));
       if (customMessage) {
         formData.append("whatsapp_message_custom", customMessage);
@@ -326,7 +326,7 @@ export default function NovaRevistaPage() {
 
             <div>
               <label className="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-1.5">
-                Data e Hora de Liberação Pública *
+                Data e Hora de Liberação Pública (horário de Brasília) *
               </label>
               <div className="relative">
                 <Clock className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" />

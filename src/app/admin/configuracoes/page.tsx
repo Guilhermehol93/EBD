@@ -513,7 +513,7 @@ export default function AdminConfiguracoesPage() {
                 className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-mono focus:outline-none focus:ring-2 focus:ring-church-500/20 focus:border-church-500 leading-relaxed"
               />
               <span className="text-[11px] text-slate-400 mt-1 block">
-                Variáveis suportadas: {'{titulo}'}, {'{data}'}, {'{link}'}, {'{numero}'}, {'{trimestre}'}
+                Variáveis: {'{titulo}'}, {'{data}'}, {'{link}'}, {'{numero}'}, {'{trimestre}'}. Use *texto* para negrito e _texto_ para itálico no WhatsApp.
               </span>
             </div>
           </div>

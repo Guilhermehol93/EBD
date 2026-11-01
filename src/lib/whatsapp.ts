@@ -125,7 +125,14 @@ export function buildMagazineWhatsAppMessage(
   templateString?: string
 ): string {
   const baseUrl = getPublicAppUrl();
-  const directLink = `${baseUrl}/revistas/${magazine.id}`;
+  let directLink: string;
+  try {
+    const url = new URL(baseUrl);
+    url.pathname = `${url.pathname.replace(/\/+$/, "")}/revistas/${magazine.id}`;
+    directLink = url.toString();
+  } catch {
+    directLink = `${baseUrl.replace(/\/$/, "")}/revistas/${magazine.id}`;
+  }
 
   const defaultTemplate =
     templateString ||
@@ -149,7 +156,9 @@ export function buildMagazineWhatsAppMessage(
     .replace(/{numero}/g, lessonNumber)
     .replace(/{trimestre}/g, quarter);
 
-  return msg;
+  // Templates saved through environment variables or the settings form can
+  // contain literal backslash-n sequences; convert them to actual line breaks.
+  return msg.replace(/\\r\\n/g, "\n").replace(/\\n/g, "\n").replace(/\\r/g, "\n");
 }
 
 /**
@@ -177,7 +186,8 @@ export async function dispatchMagazineWhatsApp(magazineId: string): Promise<Send
     .single();
 
   const recipient = settings?.whatsapp_group_jid || process.env.WHATSAPP_GROUP_JID || '';
-  const messageText = magazine.whatsapp_message_custom || buildMagazineWhatsAppMessage(magazine, settings?.whatsapp_default_message);
+  const rawMessage = magazine.whatsapp_message_custom || buildMagazineWhatsAppMessage(magazine, settings?.whatsapp_default_message);
+  const messageText = rawMessage.replace(/\\r\\n/g, "\n").replace(/\\n/g, "\n").replace(/\\r/g, "\n");
 
   // 3. Send message
   const result = await sendWhatsAppMessage({

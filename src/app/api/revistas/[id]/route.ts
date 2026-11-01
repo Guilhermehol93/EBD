@@ -3,6 +3,7 @@ import { createClient } from "@/lib/supabase/server";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { deleteStoredFile } from "@/lib/storage";
 import { isAdminUser } from "@/lib/auth";
+import { saoPauloDateTimeLocalToISOString } from "@/lib/utils";
 
 export async function GET(
   request: NextRequest,
@@ -61,7 +62,6 @@ export async function PATCH(
       "edition_quarter",
       "lesson_number",
       "lesson_date",
-      "publish_at",
       "status",
       "whatsapp_scheduled",
       "whatsapp_message_custom",
@@ -71,6 +71,24 @@ export async function PATCH(
       if (body[field] !== undefined) {
         allowedUpdates[field] = body[field];
       }
+    }
+
+    if (body.publish_at !== undefined) {
+      if (typeof body.publish_at !== "string") {
+        return NextResponse.json({ error: "Informe uma data e horário de publicação válidos." }, { status: 400 });
+      }
+      let publishDate: Date;
+      try {
+        publishDate = /(?:Z|[+-]\d{2}:\d{2})$/i.test(body.publish_at)
+          ? new Date(body.publish_at)
+          : new Date(saoPauloDateTimeLocalToISOString(body.publish_at));
+      } catch {
+        return NextResponse.json({ error: "Informe uma data e horário de publicação válidos." }, { status: 400 });
+      }
+      if (Number.isNaN(publishDate.getTime())) {
+        return NextResponse.json({ error: "Informe uma data e horário de publicação válidos." }, { status: 400 });
+      }
+      allowedUpdates.publish_at = publishDate.toISOString();
     }
 
     const { data: updated, error } = await adminClient

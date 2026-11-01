@@ -15,7 +15,7 @@ import {
   Trash2,
 } from "lucide-react";
 import { EbdClass, Magazine, MagazineStatus } from "@/lib/types";
-import { formatFileSize } from "@/lib/utils";
+import { formatFileSize, formatSaoPauloDateTimeLocal, saoPauloDateTimeLocalToISOString } from "@/lib/utils";
 
 export default function EditarRevistaPage({ params }: { params: { id: string } }) {
   const router = useRouter();
@@ -62,7 +62,7 @@ export default function EditarRevistaPage({ params }: { params: { id: string } }
         setEditionQuarter(data.edition_quarter || "");
         setLessonNumber(data.lesson_number || "");
         setLessonDate(data.lesson_date ? data.lesson_date.split("T")[0] : "");
-        setPublishAt(data.publish_at ? data.publish_at.substring(0, 16) : "");
+        setPublishAt(data.publish_at ? formatSaoPauloDateTimeLocal(data.publish_at) : "");
         setStatus(data.status);
         setWhatsappScheduled(data.whatsapp_scheduled);
         setCustomMessage(data.whatsapp_message_custom || "");
@@ -92,7 +92,7 @@ export default function EditarRevistaPage({ params }: { params: { id: string } }
           edition_quarter: editionQuarter,
           lesson_number: lessonNumber ? Number(lessonNumber) : null,
           lesson_date: lessonDate,
-          publish_at: new Date(publishAt).toISOString(),
+          publish_at: saoPauloDateTimeLocalToISOString(publishAt),
           status,
           whatsapp_scheduled: whatsappScheduled,
           whatsapp_message_custom: customMessage || null,
@@ -266,7 +266,7 @@ export default function EditarRevistaPage({ params }: { params: { id: string } }
 
             <div>
               <label className="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-1.5">
-                Data e Hora de Liberação Pública *
+                Data e Hora de Liberação Pública (horário de Brasília) *
               </label>
               <div className="relative">
                 <Clock className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" />

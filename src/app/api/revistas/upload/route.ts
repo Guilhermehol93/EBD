@@ -4,6 +4,7 @@ import { createAdminClient } from "@/lib/supabase/admin";
 import { deleteStoredFile, saveMagazinePdf } from "@/lib/storage";
 import { dispatchMagazineWhatsApp } from "@/lib/whatsapp";
 import { isAdminUser } from "@/lib/auth";
+import { saoPauloDateTimeLocalToISOString } from "@/lib/utils";
 
 export async function POST(request: NextRequest) {
   // 1. Verify admin auth
@@ -53,7 +54,21 @@ export async function POST(request: NextRequest) {
     const { relativePath, fileName, fileSize } = await saveMagazinePdf(buffer, file.name);
 
     // 3. Determine status based on publication date/time
-    const publishDate = new Date(publish_at_str);
+    // datetime-local values have no timezone. Interpret legacy/raw values in
+    // Cataguases time instead of the Docker host's timezone (usually UTC).
+    let publishDate: Date;
+    try {
+      publishDate = /(?:Z|[+-]\d{2}:\d{2})$/i.test(publish_at_str)
+        ? new Date(publish_at_str)
+        : new Date(saoPauloDateTimeLocalToISOString(publish_at_str));
+    } catch {
+      await deleteStoredFile(relativePath);
+      return NextResponse.json({ error: "Informe uma data e horário de publicação válidos." }, { status: 400 });
+    }
+    if (Number.isNaN(publishDate.getTime())) {
+      await deleteStoredFile(relativePath);
+      return NextResponse.json({ error: "Informe uma data e horário de publicação válidos." }, { status: 400 });
+    }
     const now = new Date();
     const isNow = publishDate <= now;
     const status = isNow ? "published" : "scheduled";

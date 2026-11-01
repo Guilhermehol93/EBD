@@ -13,10 +13,34 @@ interface FeaturedMagazineProps {
 export function FeaturedMagazine({ magazine }: FeaturedMagazineProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [shareError, setShareError] = useState(false);
+
+  const copyShareUrl = async (shareUrl: string) => {
+    try {
+      if (!navigator.clipboard?.writeText) throw new Error("Clipboard API unavailable");
+      await navigator.clipboard.writeText(shareUrl);
+    } catch {
+      // Clipboard API requires a secure context; support older browsers and HTTP.
+      const input = document.createElement("textarea");
+      input.value = shareUrl;
+      input.setAttribute("readonly", "");
+      input.style.position = "fixed";
+      input.style.opacity = "0";
+      document.body.appendChild(input);
+      input.select();
+      const didCopy = document.execCommand("copy");
+      document.body.removeChild(input);
+      if (!didCopy) throw new Error("Copy failed");
+    }
+    setShareError(false);
+    setCopied(true);
+    window.setTimeout(() => setCopied(false), 2500);
+  };
 
   const handleShare = async () => {
     if (!magazine) return;
     const shareUrl = window.location.origin + `/revistas/${magazine.id}`;
+    setShareError(false);
     if (navigator.share) {
       try {
         await navigator.share({
@@ -24,13 +48,17 @@ export function FeaturedMagazine({ magazine }: FeaturedMagazineProps) {
           text: `Confira a revista da EBD da PIB Cataguases: ${magazine.title}`,
           url: shareUrl,
         });
-      } catch {
-        // User cancelled or failed
+        return;
+      } catch (error) {
+        if (error instanceof DOMException && error.name === "AbortError") return;
       }
-    } else {
-      await navigator.clipboard.writeText(shareUrl);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
+    }
+
+    try {
+      await copyShareUrl(shareUrl);
+    } catch {
+      setShareError(true);
+      window.prompt("Copie o link da revista:", shareUrl);
     }
   };
 
@@ -153,7 +181,8 @@ export function FeaturedMagazine({ magazine }: FeaturedMagazineProps) {
                 <button
                   onClick={handleShare}
                   className="self-end rounded-xl border border-slate-300 bg-slate-100 p-3.5 text-slate-600 transition-colors hover:bg-slate-200 hover:text-slate-900 sm:self-auto"
-                  title="Compartilhar lição"
+                  title={copied ? "Link copiado" : shareError ? "Não foi possível compartilhar" : "Compartilhar lição"}
+                  aria-label={copied ? "Link copiado" : shareError ? "Não foi possível compartilhar" : "Compartilhar lição"}
                 >
                   {copied ? <CheckCircle2 className="w-5 h-5 text-emerald-600" /> : <Share2 className="w-5 h-5" />}
                 </button>
