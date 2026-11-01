@@ -15,7 +15,7 @@
   Software web <strong>100% self-hosted e com custo zero</strong> para automatizar a publicação e o envio no WhatsApp das revistas e lições semanais da Escola Bíblica Dominical da PIB Cataguases.
 </p>
 
-[Documentação Interativa (HTML)](./docs/index.html) • [Guia de Instalação no Umbrel](#-guia-de-instalação-no-umbrel-os-via-github) • [Configuração do WhatsApp](#-automação-do-whatsapp)
+[Documentação Interativa (HTML)](./docs/index.html) • [Guia de Instalação no Umbrel via Portainer](#-guia-de-instalação-no-umbrel-os-via-portainer) • [Configuração do WhatsApp](#-automação-do-whatsapp)
 
 **[Abrir tutorial visual de instalação e implementação](./docs/tutorial-instalacao.html)**
 
@@ -28,7 +28,7 @@
 2. [Recursos Principais](#-recursos-principais)
 3. [Arquitetura do Sistema](#-arquitetura-do-sistema)
 4. [Requisitos do Sistema](#-requisitos-do-sistema)
-5. [Guia de Instalação no Umbrel OS (via GitHub)](#-guia-de-instalação-no-umbrel-os-via-github)
+5. [Guia de Instalação no Umbrel OS via Portainer](#-guia-de-instalação-no-umbrel-os-via-portainer)
 6. [Configuração do Banco de Dados (Supabase)](#-configuração-do-banco-de-dados-supabase)
 7. [Variáveis de Ambiente (.env)](#-variáveis-de-ambiente-env)
 8. [Automação do WhatsApp (Evolution API)](#-automação-do-whatsapp)
@@ -123,47 +123,15 @@ O projeto opera sob o princípio de **Custo Zero Absoluto**:
 
 ---
 
-## 🚀 Guia de Instalação no Umbrel OS (via GitHub)
+## 🚀 Guia de Instalação no Umbrel OS via Portainer
 
-### Passo 1: Conectar ao Servidor Umbrel via SSH
-No seu computador (Windows PowerShell, macOS Terminal ou Linux), conecte-se ao seu Umbrel:
-```bash
-ssh umbrel@umbrel.local
-# (Digite a sua senha do Umbrel OS)
-```
+O fluxo recomendado é criar uma Stack no Portainer usando o repositório Git. Abra **Portainer → ambiente Docker local → Stacks → Add stack**, escolha **Repository**, preencha a URL do repositório e a branch, e defina o Compose path como `docker-compose.yml`. Cadastre as variáveis da aplicação na seção **Environment variables** antes de clicar em **Deploy the stack**.
 
-### Passo 2: Clonar o Repositório do GitHub
-```bash
-cd ~
-git clone https://github.com/SEU_USUARIO/ebd-revista-manager.git
-cd ebd-revista-manager
-```
+O Portainer clona o repositório e constrói os serviços. As chaves públicas do Supabase são usadas como argumentos de build; a chave service role e os segredos permanecem no servidor. Faça backup de `data/uploads` antes de atualizar a Stack.
 
-### Passo 3: Configurar as Variáveis de Ambiente
-Copie o modelo de exemplo e edite com suas credenciais do Supabase:
-```bash
-cp .env.example .env
-nano .env
-```
-> Preencha `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY` e `SUPABASE_SERVICE_ROLE_KEY`.  
-> Para salvar no nano: pressione `Ctrl + O`, tecle `Enter` e depois saia com `Ctrl + X`.
+Consulte o [tutorial visual completo de implantação via Portainer](./docs/tutorial-instalacao.html), que também explica a criação do administrador e o pareamento opcional do WhatsApp.
 
-### Passo 4: Executar o Script de Inicialização
-O script criará as pastas persistentes de upload e ajustará as permissões:
-```bash
-chmod +x scripts/init.sh
-./scripts/init.sh
-```
-
-### Passo 5: Subir a Aplicação no Docker
-```bash
-docker compose up -d --build
-```
-
-### Passo 6: Acessar a Aplicação
-Abra o navegador no seu computador ou celular conectado na mesma rede:
-- **Portal Público da EBD:** `http://umbrel.local:3000` (ou `http://IP_DO_SEU_UMBREL:3000`)
-- **Painel Administrativo:** `http://umbrel.local:3000/admin/login`
+Depois da implantação, acesse `http://umbrel.local:3000` (ou o endereço/IP do Umbrel) e entre no painel em `/admin/login`.
 
 ---
 
@@ -191,10 +159,10 @@ Abra o navegador no seu computador ou celular conectado na mesma rede:
 | `NEXT_PUBLIC_APP_URL` | URL base para links nas mensagens | `http://umbrel.local:3000` |
 | `UPLOAD_DIR` | Diretório de armazenamento persistente | `/app/data/uploads` |
 | `PORT` | Porta HTTP da aplicação | `3000` |
-| `CRON_SECRET` | Senha de proteção do endpoint cron | `chave_secreta_2026` |
+| `CRON_SECRET` | Segredo opcional para chamadas externas autenticadas ao cron | Gerar com `openssl rand -hex 32` |
 | `WHATSAPP_PROVIDER` | Provedor de envio (`evolution` ou `webhook`) | `evolution` |
 | `WHATSAPP_API_URL` | URL interna do container Evolution API | `http://evolution-api:8080` |
-| `WHATSAPP_API_KEY` | Chave de autenticação da Evolution API | `chave_evolution_2026` |
+| `WHATSAPP_API_KEY` | Chave forte compartilhada com a Evolution API | Gerar com `openssl rand -hex 32` |
 | `WHATSAPP_INSTANCE` | Nome da instância do WhatsApp | `pib-cataguases-ebd` |
 | `WHATSAPP_GROUP_JID` | ID do grupo da EBD no WhatsApp | `120363028372648291@g.us` |
 
@@ -246,23 +214,14 @@ Acesse o Painel Administrativo em **Configurações & Banner**, insira o ID do g
 
 ## 🛠️ Resolução de Problemas (Troubleshooting)
 
-### Como ver os logs dos containers em tempo real?
-```bash
-docker compose logs -f ebd-app
-docker compose logs -f evolution-api
-```
+### Como ver os logs dos containers?
+No Portainer, abra **Stacks**, selecione `ebd-revista-manager` e escolha o container para ver seus logs.
 
-### Como atualizar a aplicação para uma nova versão do GitHub?
-```bash
-cd ~/ebd-revista-manager
-git pull origin main
-docker compose up -d --build
-```
+### Como atualizar a aplicação para uma nova versão do Git?
+Envie as alterações para a branch configurada e, no Portainer, abra a Stack e escolha **Pull and redeploy**. Faça backup de `data/uploads` antes da atualização.
 
 ### Erro de permissão ao salvar arquivos PDF?
-```bash
-sudo chmod -R 777 data/uploads
-```
+Confira os logs do container `ebd-app` no Portainer e as permissões da pasta `data/uploads`. Evite permissões abertas como `777`.
 
 ---
 
